@@ -1,0 +1,57 @@
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\bin\Debug\wfa_STR.exe.config
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\bin\Debug\wfa_STR.exe
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\bin\Debug\wfa_STR.pdb
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\bin\Debug\ScottPlot.dll
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\bin\Debug\ScottPlot.WinForms.dll
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\bin\Debug\System.Drawing.Common.dll
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\bin\Debug\System.ValueTuple.dll
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\bin\Debug\ScottPlot.xml
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\bin\Debug\System.ValueTuple.xml
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\obj\Debug\wfa_STR.csproj.AssemblyReference.cache
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\obj\Debug\wfa_STR.Form1.resources
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\obj\Debug\wfa_STR.Properties.Resources.resources
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\obj\Debug\wfa_STR.csproj.GenerateResource.cache
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\obj\Debug\wfa_STR.csproj.CoreCompileInputs.cache
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\obj\Debug\wfa_STR.csproj.CopyComplete
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\obj\Debug\wfa_STR.exe
+C:\Users\tharb\source\repos\wfaSTR_Pratica02\wfa_STR\obj\Debug\wfa_STR.pdb
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\bin\Debug\wfa_STR.exe.config
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\bin\Debug\wfa_STR.exe
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\bin\Debug\wfa_STR.pdb
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\bin\Debug\ScottPlot.dll
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\bin\Debug\ScottPlot.WinForms.dll
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\bin\Debug\System.Drawing.Common.dll
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\bin\Debug\System.Numerics.Vectors.dll
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\bin\Debug\System.ValueTuple.dll
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\bin\Debug\ScottPlot.xml
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\bin\Debug\System.Numerics.Vectors.xml
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\bin\Debug\System.ValueTuple.xml
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\obj\Debug\wfa_STR.csproj.AssemblyReference.cache
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\obj\Debug\wfa_STR.Form1.resources
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\obj\Debug\wfa_STR.Properties.Resources.resources
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\obj\Debug\wfa_STR.csproj.GenerateResource.cache
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\obj\Debug\wfa_STR.csproj.CoreCompileInputs.cache
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\obj\Debug\wfa_STR.exe
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\obj\Debug\wfa_STR.pdb
+G:\Meu Drive\Faculdade\2023-02\Sistemas em Tempo Real\Prática 02\wfaSTR_Pratica02\wfa_STR\obj\Debug\wfa_STR.csproj.Up2Date
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\bin\Debug\wfa_STR.exe.config
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\bin\Debug\wfa_STR.exe
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\bin\Debug\wfa_STR.pdb
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\bin\Debug\ScottPlot.dll
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\bin\Debug\ScottPlot.WinForms.dll
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\bin\Debug\System.Drawing.Common.dll
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\bin\Debug\System.ValueTuple.dll
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\bin\Debug\ScottPlot.xml
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\bin\Debug\System.ValueTuple.xml
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\obj\Debug\wfa_STR.csproj.AssemblyReference.cache
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\obj\Debug\wfa_STR.Form1.resources
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\obj\Debug\wfa_STR.Properties.Resources.resources
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\obj\Debug\wfa_STR.csproj.GenerateResource.cache
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\obj\Debug\wfa_STR.csproj.CoreCompileInputs.cache
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\obj\Debug\wfa_STR.csproj.Up2Date
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\obj\Debug\wfa_STR.exe
+C:\Users\tharb\Desktop\Trabalho\wfa_STR\obj\Debug\wfa_STR.pdb
