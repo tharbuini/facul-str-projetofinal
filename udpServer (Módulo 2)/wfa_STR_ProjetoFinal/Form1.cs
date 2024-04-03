@@ -13,26 +13,30 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using ScottPlot;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Diagnostics;
 
 namespace wfa_STR_ProjetoFinal
 {
     public partial class Form1 : Form
     {
         Thread threadRecebimentosPacotes = null;
+        Thread threadDispositivo = null; // temporário
         Thread[] listaThreadsDispositivos; // lista de dispositivos para monitoramento simultâneo
         UnidadeMonitoramentoDados[] listaUnidadeMonitoramento;
         JSON_Dados_Corrente dadosRecebidosEmFormatoJSON;
-        UdpClient uSocketConexaoUDP = null;
-        IPEndPoint ipConexaoRecebimentoUDP = null;
-        IPEndPoint ipConexaoEnvioUDP = null;
+        UdpClient udpServer = null;
+        IPEndPoint remoteEP = null;
         string mensagemRecebida;
         byte[] bytesRecebidos;
         int contadorRecebimentoPacote = 0;
         private List<int> dadosPlotarGrafico = new List<int>();
         Boolean pararRecebimentoDados = false;
-        
-        UdpClient udpServer;
-        IPEndPoint remoteEP;
+        private Stopwatch marcadorTempoCurto; 
+        int correnteA = 0;
+        int correnteB = 0;
+        int correnteC = 0;
+        int correnteMedia = 0;
+
 
         public Form1()
         {
@@ -59,10 +63,6 @@ namespace wfa_STR_ProjetoFinal
             threadRecebimentosPacotes = new Thread(RecebimentoPacotesUDP);
             threadRecebimentosPacotes.Start();
 
-            // COMO DESCOBRIR A QUANTIDADE DE UNIDADES GERADORAS DO OUTRO APLICATIVO?
-            // talvez função assíncrona (em thread) que monitora os IDs das unidades geradoras que estão enviando pacotes, que manda pacotes em broadcast e vê quem responde?
-            // talvez verificar ID a cada vez que receber corrente para monitorar?
-            // talvez receber como pacote periodicamente do outro módulo e apenas atribuir a uma variável?
             
             // GERA THREADS
             //for (int i = 0; i < quantidadeUnidadesGeradoras; i++)
@@ -73,13 +73,31 @@ namespace wfa_STR_ProjetoFinal
             //}
         }
 
+        private void buttonParar_Click(object sender, EventArgs e)
+        {
+            // parte 0: inicializações de interface
+            buttonParar.Enabled = false;
+            timerPlotSinaisRecebidos.Stop(); //para plotar sinais
+            contadorRecebimentoPacote = 0;
+            dadosPlotarGrafico.Clear();
+            buttonIniciar.Enabled = true;
+            pararRecebimentoDados = true;
+            textBoxCorrenteAtual.Text = "";
+            textBoxTimerControleCurto.Text = "";
 
-        // A análise deve ser feita dentro de uma função aberta por Thread?
+            //// parte 1: para os objetos equivalentes a unidades geradoras            
+            //for (int i = 0; i < listaUnidadesGeradorasDadosMedicao.Length; i++)
+            //{
+            //    listaUnidadesGeradorasDadosMedicao[i].pararEnvio = true; // vai forçar as threads pararem
+            //}
+            //Thread.Sleep(500);
+            //listaUnidadesGeradorasDadosMedicao = null;
 
-        int correnteA;
-        int correnteB;
-        int correnteC;
-        int correnteMedia;
+            // parte 2: fecha a conexão UDP
+            udpServer.Close();
+            threadRecebimentosPacotes.Abort();
+            threadDispositivo.Abort();
+        }
 
         private void RecebimentoPacotesUDP()
         {
@@ -97,9 +115,46 @@ namespace wfa_STR_ProjetoFinal
                 correnteC = dadosRecebidosEmFormatoJSON.Ic;
                 correnteMedia = (correnteA + correnteB + correnteC) / 3;
 
-                textBoxCorrenteAtual.Text = "UDP (" + remoteEP.Address.ToString() + ") >> " + correnteMedia;
+                textBoxCorrenteAtual.Text = correnteMedia.ToString() + " A";
+                toolStripTextBoxConexao.Text = "UDP (" + remoteEP.Address.ToString() + ")";
                 contadorRecebimentoPacote++;
+
+                threadDispositivo = new Thread(() => AnalisaDados(correnteMedia));
+                threadDispositivo.Start();
             }
+        }
+
+        private void AnalisaDados(int corrente)
+        {
+            double tempo_dial = 0.0;
+            marcadorTempoCurto = new Stopwatch(); 
+
+            // ALTERAR ANÁLISE DA CORRENTE
+            if (corrente >= 2)
+            {
+                tempo_dial = 3.0;
+                marcadorTempoCurto.Start(); // inicia contagem de tempo
+                timerControleCurto.Start();
+                textBoxTimerControleCurto.Text = marcadorTempoCurto.Elapsed.TotalSeconds.ToString();
+            }
+
+            if (marcadorTempoCurto.IsRunning)
+            {
+                if (Convert.ToDouble(marcadorTempoCurto.Elapsed.TotalSeconds) < tempo_dial)
+                {
+                    // espera
+                }
+                else if (marcadorTempoCurto.Elapsed.TotalSeconds >= tempo_dial)
+                {
+                    marcadorTempoCurto.Stop();
+                    timerControleCurto.Stop();
+                }
+            }
+        }
+
+        private void timerControleCurto_Tick(object sender, EventArgs e)
+        {
+            //textBoxTimerControleCurto.Text = Convert.ToString(marcadorTempoCurto.ElapsedMilliseconds) + " ms";
         }
 
         private void timerPlotaModulo1SinaisEnviados_Tick(object sender, EventArgs e)
@@ -120,7 +175,7 @@ namespace wfa_STR_ProjetoFinal
             double[] xs = DataGen.Consecutive(dadosPlotarGrafico.Count);
             for (int i = 0; i < dadosPlotarGrafico.Count; i++)
             {
-                ys[i] = (double)dadosPlotarGrafico[i];
+                ys[i] = (double)correnteMedia;
             }
             formsPlotPacotesRecebidos.Plot.Clear();
             if (dadosPlotarGrafico.Count > 1)
@@ -129,6 +184,7 @@ namespace wfa_STR_ProjetoFinal
                 formsPlotPacotesRecebidos.Refresh();
             }
         }
+
     } // -------- FIM CLASSE ---------
 
 
@@ -145,7 +201,6 @@ namespace wfa_STR_ProjetoFinal
     {
         public void AnalisaDados() // vai ser usado como uma thread
         {
-
         }
     }
 }

@@ -55,3 +55,22 @@ C:\Users\tharb\Desktop\Trabalho\wfa_STR\obj\Debug\wfa_STR.csproj.CoreCompileInpu
 C:\Users\tharb\Desktop\Trabalho\wfa_STR\obj\Debug\wfa_STR.csproj.Up2Date
 C:\Users\tharb\Desktop\Trabalho\wfa_STR\obj\Debug\wfa_STR.exe
 C:\Users\tharb\Desktop\Trabalho\wfa_STR\obj\Debug\wfa_STR.pdb
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\bin\Debug\wfa_STR.exe.config
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\bin\Debug\wfa_STR.exe
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\bin\Debug\wfa_STR.pdb
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\bin\Debug\ScottPlot.dll
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\bin\Debug\ScottPlot.WinForms.dll
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\bin\Debug\System.Drawing.Common.dll
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\bin\Debug\System.ValueTuple.dll
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\bin\Debug\ScottPlot.xml
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\bin\Debug\System.ValueTuple.xml
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\obj\Debug\wfa_STR.csproj.AssemblyReference.cache
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\obj\Debug\wfa_STR.Form1.resources
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\obj\Debug\wfa_STR.Properties.Resources.resources
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\obj\Debug\wfa_STR.csproj.GenerateResource.cache
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\obj\Debug\wfa_STR.csproj.CoreCompileInputs.cache
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\obj\Debug\wfa_STR.csproj.Up2Date
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\obj\Debug\wfa_STR.exe
+C:\Users\tharb\Documents\GitHub\facul-str-projetofinal\udpClient (Módulo 1)\wfa_STR\obj\Debug\wfa_STR.pdb

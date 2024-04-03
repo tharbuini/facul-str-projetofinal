@@ -23,10 +23,9 @@ namespace wfa_STR
         UdpClient udpClient = null;
         IPEndPoint ipConexaoRecebimentoUDP = null;
         IPEndPoint ipConexaoEnvioUDP = null;
-        string mensagemRecebida;
-        byte[] bytesRecebidos;
         private List<int> dadosPlotarGrafico= new List<int>();
         JSON_DADOS_RECEBIDOS_CORRENTE dadosRecebidosEmFormatoJSON;
+        byte[] bytesRecebidos;
         int contadorRecebimentoPacote = 0;
         public Mutex nossoMutex = new Mutex();
         bool pararRecebimentoDados = false;
@@ -78,6 +77,7 @@ namespace wfa_STR
 
             ipConexaoRecebimentoUDP = new IPEndPoint(IPAddress.Any, 11001);
 
+            // NÃO FUNCIONA AINDA
             threadRecebimentosPacotes = new Thread(RecebimentoPacotesUDP);
             threadRecebimentosPacotes.Start();
 
@@ -89,14 +89,12 @@ namespace wfa_STR
             int codigo = 0;
             int freqEnvio = 0;
             int correnteOriginal = 0;
-            int correnteCurto = 0;
             for (int i = 0; i < quantidadeUnidGeradoras; i++)
             {
                 codigo = Convert.ToInt16(listViewUnidGeradora.Items[i].SubItems[0].Text);
                 freqEnvio = Convert.ToInt16(listViewUnidGeradora.Items[i].SubItems[1].Text);
                 correnteOriginal = Convert.ToInt16(listViewUnidGeradora.Items[i].SubItems[2].Text);
-                correnteCurto = Convert.ToInt16(listViewUnidGeradora.Items[i].SubItems[3].Text);
-                listaUnidadesGeradorasDadosMedicao[i] = new UnidadeGeradoraDadosMedicao(udpClient, ipConexaoEnvioUDP, nossoMutex, correnteOriginal, codigo, freqEnvio, correnteCurto, false);
+                listaUnidadesGeradorasDadosMedicao[i] = new UnidadeGeradoraDadosMedicao(udpClient, ipConexaoEnvioUDP, nossoMutex, correnteOriginal, codigo, freqEnvio);
             }
 
             // parte 3: gera threads
@@ -139,7 +137,7 @@ namespace wfa_STR
 
         private void buttonAdicionar_Click(object sender, EventArgs e)
         {
-            listViewUnidGeradora.Items.Add(new ListViewItem(new String[] { numericUpDownCodUnidGen.Value.ToString(), numericUpDownFreqEnvio.Value.ToString(), numericUpDownValorCorrente.Value.ToString(), numericUpDownValorCurto.Value.ToString() }));
+            listViewUnidGeradora.Items.Add(new ListViewItem(new String[] { numericUpDownCodUnidGen.Value.ToString(), numericUpDownFreqEnvio.Value.ToString(), numericUpDownValorCorrente.Value.ToString() }));
             numericUpDownCodUnidGen.Value = numericUpDownCodUnidGen.Value + 1;
         }
 
@@ -150,9 +148,6 @@ namespace wfa_STR
                 if (pararRecebimentoDados) // para o recebimento caso a flag seja True
                     return;
                 bytesRecebidos = udpClient.Receive(ref ipConexaoRecebimentoUDP);
-                //mensagemRecebida = Encoding.ASCII.GetString(bytesRecebidos);
-                //dadosRecebidosEmFormatoJSON = JsonConvert.DeserializeObject<JSON_DADOS_RECEBIDOS_CORRENTE>(menssagemRecebida);
-                //textBoxRecepcaoConexao.Text = textBoxRecepcaoConexao.Text + "RECEBEU_UDP (" + ipConexaoRecebimentoUDP.Address.ToString() + ") >>" + mensagemRecebida + Environment.NewLine;
                 contadorRecebimentoPacote++;
             }
         }
@@ -192,18 +187,6 @@ namespace wfa_STR
             [DisplayName("Pacotes enviados")]
             public int contadoPacotesEnviados { get; set; }
 
-            [Browsable(true)]
-            [ReadOnly(false)]
-            [Description("Valor que indica se o item esta em curto")]
-            [DisplayName("Valor curto")]
-            public int valorCurto { get; set; }
-
-            [Browsable(true)]
-            [ReadOnly(false)]
-            [Description("Indica se está em curto")]
-            [DisplayName("Em curto?")]
-            public bool estaCurto { get; set; }
-
             [Browsable(false)]
             public bool pararEnvio { get; set; }
 
@@ -211,14 +194,12 @@ namespace wfa_STR
             public UdpClient usocketConexaoUDP;
             public IPEndPoint ipConexaoEnvioUDP;
 
-            public UnidadeGeradoraDadosMedicao(UdpClient p_usocketConexaoUDP, IPEndPoint p_ipConexaoEnvioUDP, Mutex p_nossoMutex, int p_valorCorrente, int p_codDestaUnidade, int p_freqEnvioPacotesMS, int p_valorCurto, bool p_estaCurto)
+            public UnidadeGeradoraDadosMedicao(UdpClient p_usocketConexaoUDP, IPEndPoint p_ipConexaoEnvioUDP, Mutex p_nossoMutex, int p_valorCorrente, int p_codDestaUnidade, int p_freqEnvioPacotesMS)
             {
                 nossoMutex = p_nossoMutex;
                 valorCorrente = p_valorCorrente;
                 codDestaUnidade = p_codDestaUnidade;
                 freqEnvioPacotesMS = p_freqEnvioPacotesMS;
-                valorCurto = p_valorCurto;
-                estaCurto = p_estaCurto;
                 usocketConexaoUDP = p_usocketConexaoUDP;
                 ipConexaoEnvioUDP = p_ipConexaoEnvioUDP;
                 contadoPacotesEnviados = 0;
@@ -251,8 +232,6 @@ namespace wfa_STR
                     nossoMutex.ReleaseMutex(); // desbloqueia esta região 
                     if (pararEnvio)
                         return;
-                    if ((valorCorrente < valorCurto) || !estaCurto) // se não estiver em curto
-                        Thread.Sleep(freqEnvioPacotesMS); // aguarda até próximo envio
                     else // está em curto
                         Thread.Sleep(1); // sleep() para não sobrecarregar
                 }

@@ -33,12 +33,10 @@
             this.propertyGridUnidGeradoras = new System.Windows.Forms.PropertyGrid();
             this.buttonIniciarEnvio = new System.Windows.Forms.Button();
             this.buttonLimpar = new System.Windows.Forms.Button();
-            this.numericUpDownValorCurto = new System.Windows.Forms.NumericUpDown();
             this.buttonAdicionar = new System.Windows.Forms.Button();
             this.numericUpDownValorCorrente = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.formsPlotPacotesEnviados = new ScottPlot.FormsPlot();
-            this.label9 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDownFreqEnvio = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
@@ -54,7 +52,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.timerRecepcao = new System.Windows.Forms.Timer(this.components);
             this.timerPlotSinaisEnviados = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownValorCurto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownValorCorrente)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFreqEnvio)).BeginInit();
@@ -108,29 +105,6 @@
             this.buttonLimpar.UseVisualStyleBackColor = true;
             this.buttonLimpar.Click += new System.EventHandler(this.buttonLimpar_Click);
             // 
-            // numericUpDownValorCurto
-            // 
-            this.numericUpDownValorCurto.Location = new System.Drawing.Point(76, 90);
-            this.numericUpDownValorCurto.Margin = new System.Windows.Forms.Padding(2);
-            this.numericUpDownValorCurto.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDownValorCurto.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownValorCurto.Name = "numericUpDownValorCurto";
-            this.numericUpDownValorCurto.Size = new System.Drawing.Size(176, 20);
-            this.numericUpDownValorCurto.TabIndex = 59;
-            this.numericUpDownValorCurto.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
             // buttonAdicionar
             // 
             this.buttonAdicionar.Location = new System.Drawing.Point(17, 113);
@@ -178,16 +152,6 @@
             this.formsPlotPacotesEnviados.Name = "formsPlotPacotesEnviados";
             this.formsPlotPacotesEnviados.Size = new System.Drawing.Size(346, 505);
             this.formsPlotPacotesEnviados.TabIndex = 0;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(16, 92);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(61, 13);
-            this.label9.TabIndex = 60;
-            this.label9.Text = "Valor curto:";
             // 
             // label2
             // 
@@ -267,8 +231,6 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.numericUpDownValorCurto);
-            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.buttonAdicionar);
             this.groupBox2.Controls.Add(this.numericUpDownValorCorrente);
@@ -370,7 +332,6 @@
             this.Controls.Add(this.groupBox4);
             this.Name = "Form1";
             this.Text = "Gerador Mockup";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownValorCurto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownValorCorrente)).EndInit();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFreqEnvio)).EndInit();
@@ -389,11 +350,9 @@
         private System.Windows.Forms.PropertyGrid propertyGridUnidGeradoras;
         private System.Windows.Forms.Button buttonIniciarEnvio;
         private System.Windows.Forms.Button buttonLimpar;
-        private System.Windows.Forms.NumericUpDown numericUpDownValorCurto;
         private System.Windows.Forms.Button buttonAdicionar;
         private System.Windows.Forms.NumericUpDown numericUpDownValorCorrente;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericUpDownFreqEnvio;
         private System.Windows.Forms.Label label10;
