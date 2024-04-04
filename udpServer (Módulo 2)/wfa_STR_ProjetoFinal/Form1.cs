@@ -31,11 +31,14 @@ namespace wfa_STR_ProjetoFinal
         int contadorRecebimentoPacote = 0;
         private List<int> dadosPlotarGrafico = new List<int>();
         Boolean pararRecebimentoDados = false;
-        private Stopwatch marcadorTempoCurto; 
-        int correnteA = 0;
-        int correnteB = 0;
-        int correnteC = 0;
-        int correnteMedia = 0;
+        private Stopwatch marcadorTempoCurto;
+        double correnteA = 0;
+        double correnteB = 0;
+        double correnteC = 0;
+        double correnteMedia = 0;
+        double correnteNominal = 600;
+        double dial = 0.25;
+        double correnteCCMax = 10000;
 
 
         public Form1()
@@ -63,8 +66,7 @@ namespace wfa_STR_ProjetoFinal
             threadRecebimentosPacotes = new Thread(RecebimentoPacotesUDP);
             threadRecebimentosPacotes.Start();
 
-            
-            // GERA THREADS
+            // gera threads
             //for (int i = 0; i < quantidadeUnidadesGeradoras; i++)
             //{
             //    listaThreadsDispositivos[i] = new Thread(new ThreadStart(listaUnidadeMonitoramento[i].AnalisaDados));
@@ -99,6 +101,9 @@ namespace wfa_STR_ProjetoFinal
             threadDispositivo.Abort();
         }
 
+
+        Boolean threadAberta = false;
+        double correnteSendoAnalisada = 0;
         private void RecebimentoPacotesUDP()
         {
             while (true)
@@ -119,42 +124,60 @@ namespace wfa_STR_ProjetoFinal
                 toolStripTextBoxConexao.Text = "UDP (" + remoteEP.Address.ToString() + ")";
                 contadorRecebimentoPacote++;
 
-                threadDispositivo = new Thread(() => AnalisaDados(correnteMedia));
-                threadDispositivo.Start();
+                if (correnteMedia > correnteCCMax)
+                {
+                    break;
+                }
+
+                if (correnteMedia < correnteSendoAnalisada && threadAberta) 
+                {
+                    threadDispositivo.Abort();
+                }
+
+                if (((correnteMedia >= correnteNominal) && !threadAberta) || ((correnteMedia > correnteSendoAnalisada) && threadAberta))
+                {
+                    threadDispositivo = new Thread(() => AnalisaDados(correnteMedia));
+                    threadDispositivo.Start();
+                    threadAberta = true;
+                    correnteSendoAnalisada = correnteMedia;
+                }
             }
         }
 
-        private void AnalisaDados(int corrente)
+        Boolean timerComecou = false;
+        double tempoAtuacao = 0;
+        private void AnalisaDados(double corrente)
         {
-            double tempo_dial = 0.0;
-            marcadorTempoCurto = new Stopwatch(); 
-
-            // ALTERAR ANÁLISE DA CORRENTE
-            if (corrente >= 2)
-            {
-                tempo_dial = 3.0;
+            if (!timerComecou) 
+            { 
+                marcadorTempoCurto = new Stopwatch();
                 marcadorTempoCurto.Start(); // inicia contagem de tempo
                 timerControleCurto.Start();
-                textBoxTimerControleCurto.Text = marcadorTempoCurto.Elapsed.TotalSeconds.ToString();
+                timerComecou = true;
             }
 
-            if (marcadorTempoCurto.IsRunning)
-            {
-                if (Convert.ToDouble(marcadorTempoCurto.Elapsed.TotalSeconds) < tempo_dial)
-                {
-                    // espera
-                }
-                else if (marcadorTempoCurto.Elapsed.TotalSeconds >= tempo_dial)
-                {
-                    marcadorTempoCurto.Stop();
-                    timerControleCurto.Stop();
-                }
-            }
+            // Como atualizar o tempo de atuação quando o valor da corrente aumenta ou abaixa em relação ao anterior?
+
+            // seguindo a curva muito-inversa e os valores adotados no vídeo de exemplo
+            tempoAtuacao = dial * (13.5 / ((correnteCCMax / corrente) - 1));
+            textBoxTempoAtuacao.Text = tempoAtuacao.ToString();
         }
 
         private void timerControleCurto_Tick(object sender, EventArgs e)
         {
-            //textBoxTimerControleCurto.Text = Convert.ToString(marcadorTempoCurto.ElapsedMilliseconds) + " ms";
+            double tempoDecorrido = marcadorTempoCurto.Elapsed.TotalMilliseconds;
+            textBoxTimerControleCurto.Text = tempoDecorrido.ToString() + " ms";
+
+            if (tempoDecorrido < tempoAtuacao)
+            {
+                // espera
+            }
+            else if (tempoDecorrido >= tempoAtuacao)
+            {
+                marcadorTempoCurto.Stop();
+                timerControleCurto.Stop();
+                timerComecou = false;
+            }
         }
 
         private void timerPlotaModulo1SinaisEnviados_Tick(object sender, EventArgs e)

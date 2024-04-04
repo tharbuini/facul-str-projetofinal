@@ -129,7 +129,7 @@
             this.numericUpDownValorCorrente.Size = new System.Drawing.Size(136, 20);
             this.numericUpDownValorCorrente.TabIndex = 47;
             this.numericUpDownValorCorrente.Value = new decimal(new int[] {
-            1,
+            100,
             0,
             0,
             0});
@@ -181,7 +181,7 @@
             this.numericUpDownFreqEnvio.Size = new System.Drawing.Size(152, 20);
             this.numericUpDownFreqEnvio.TabIndex = 21;
             this.numericUpDownFreqEnvio.Value = new decimal(new int[] {
-            10,
+            50,
             0,
             0,
             0});

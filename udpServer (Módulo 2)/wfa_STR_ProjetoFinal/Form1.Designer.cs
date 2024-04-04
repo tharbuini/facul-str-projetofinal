@@ -33,6 +33,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.formsPlotPacotesRecebidos = new ScottPlot.FormsPlot();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxTimerControleCurto = new System.Windows.Forms.TextBox();
             this.buttonParar = new System.Windows.Forms.Button();
             this.buttonIniciar = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -42,8 +44,8 @@
             this.textBoxCorrenteAtual = new System.Windows.Forms.TextBox();
             this.timerControleCurto = new System.Windows.Forms.Timer(this.components);
             this.timerPlotSinaisRecebidos = new System.Windows.Forms.Timer(this.components);
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxTimerControleCurto = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxTempoAtuacao = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -87,6 +89,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.textBoxTempoAtuacao);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.textBoxTimerControleCurto);
             this.groupBox2.Controls.Add(this.buttonParar);
@@ -102,6 +106,25 @@
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Controle";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 154);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(36, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Timer:";
+            // 
+            // textBoxTimerControleCurto
+            // 
+            this.textBoxTimerControleCurto.Location = new System.Drawing.Point(8, 169);
+            this.textBoxTimerControleCurto.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxTimerControleCurto.Name = "textBoxTimerControleCurto";
+            this.textBoxTimerControleCurto.ReadOnly = true;
+            this.textBoxTimerControleCurto.Size = new System.Drawing.Size(194, 20);
+            this.textBoxTimerControleCurto.TabIndex = 5;
             // 
             // buttonParar
             // 
@@ -175,31 +198,31 @@
             // 
             // timerControleCurto
             // 
-            this.timerControleCurto.Interval = 1000;
+            this.timerControleCurto.Interval = 50;
             this.timerControleCurto.Tick += new System.EventHandler(this.timerControleCurto_Tick);
             // 
             // timerPlotSinaisRecebidos
             // 
             this.timerPlotSinaisRecebidos.Interval = 1000;
             // 
-            // label2
+            // label3
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 106);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Timer:";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 102);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(101, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Tempo de Atuação:";
             // 
-            // textBoxTimerControleCurto
+            // textBoxTempoAtuacao
             // 
-            this.textBoxTimerControleCurto.Location = new System.Drawing.Point(8, 121);
-            this.textBoxTimerControleCurto.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxTimerControleCurto.Name = "textBoxTimerControleCurto";
-            this.textBoxTimerControleCurto.ReadOnly = true;
-            this.textBoxTimerControleCurto.Size = new System.Drawing.Size(194, 20);
-            this.textBoxTimerControleCurto.TabIndex = 5;
+            this.textBoxTempoAtuacao.Location = new System.Drawing.Point(8, 117);
+            this.textBoxTempoAtuacao.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxTempoAtuacao.Name = "textBoxTempoAtuacao";
+            this.textBoxTempoAtuacao.ReadOnly = true;
+            this.textBoxTempoAtuacao.Size = new System.Drawing.Size(194, 20);
+            this.textBoxTempoAtuacao.TabIndex = 7;
             // 
             // Form1
             // 
@@ -237,6 +260,8 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxTimerControleCurto;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxTempoAtuacao;
     }
 }
 
