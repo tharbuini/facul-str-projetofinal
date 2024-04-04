@@ -3,11 +3,11 @@
   "WorkspaceRootPath": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\udpServer (M\u00F3dulo 2)\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E84C1FBC-6A66-408F-B7F8-0ECC6727CD58}|wfa_STR_ProjetoFinal\\wfa_STR_ProjetoFinal.csproj|C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\udpServer (M\u00F3dulo 2)\\wfa_str_projetofinal\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E84C1FBC-6A66-408F-B7F8-0ECC6727CD58}|wfa_STR_ProjetoFinal\\wfa_STR_ProjetoFinal.csproj|c:\\users\\tharb\\documents\\github\\facul-str-projetofinal\\udpserver (m\u00F3dulo 2)\\wfa_str_projetofinal\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E84C1FBC-6A66-408F-B7F8-0ECC6727CD58}|wfa_STR_ProjetoFinal\\wfa_STR_ProjetoFinal.csproj|solutionrelative:wfa_str_projetofinal\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E84C1FBC-6A66-408F-B7F8-0ECC6727CD58}|wfa_STR_ProjetoFinal\\wfa_STR_ProjetoFinal.csproj|c:\\users\\tharb\\documents\\github\\facul-str-projetofinal\\udpserver (m\u00F3dulo 2)\\wfa_str_projetofinal\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{E84C1FBC-6A66-408F-B7F8-0ECC6727CD58}|wfa_STR_ProjetoFinal\\wfa_STR_ProjetoFinal.csproj|C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\udpServer (M\u00F3dulo 2)\\wfa_str_projetofinal\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{E84C1FBC-6A66-408F-B7F8-0ECC6727CD58}|wfa_STR_ProjetoFinal\\wfa_STR_ProjetoFinal.csproj|solutionrelative:wfa_str_projetofinal\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
@@ -34,8 +34,7 @@
               "RelativeToolTip": "wfa_STR_ProjetoFinal\\Form1.Designer.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T19:38:47.23Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-03T19:38:47.23Z"
             },
             {
               "$type": "Document",
@@ -45,7 +44,7 @@
               "RelativeDocumentMoniker": "wfa_STR_ProjetoFinal\\Form1.cs",
               "ToolTip": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\udpServer (M\u00F3dulo 2)\\wfa_STR_ProjetoFinal\\Form1.cs",
               "RelativeToolTip": "wfa_STR_ProjetoFinal\\Form1.cs",
-              "ViewState": "AQIAAF0AAAAAAAAAAAAcwG0AAAANAAAA",
+              "ViewState": "AQIAAI8AAAAAAAAAAAAIwKQAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-02T17:41:38.017Z",
               "EditorCaption": ""
@@ -59,8 +58,7 @@
               "ToolTip": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\udpServer (M\u00F3dulo 2)\\wfa_STR_ProjetoFinal\\Form1.cs [Design]",
               "RelativeToolTip": "wfa_STR_ProjetoFinal\\Form1.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-02T17:41:35.889Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-04-02T17:41:35.889Z"
             }
           ]
         }

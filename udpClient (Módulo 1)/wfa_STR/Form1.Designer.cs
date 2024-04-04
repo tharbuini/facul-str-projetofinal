@@ -328,7 +328,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(648, 628);
+            this.ClientSize = new System.Drawing.Size(624, 628);
             this.Controls.Add(this.groupBox4);
             this.Name = "Form1";
             this.Text = "Gerador Mockup";

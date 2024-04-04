@@ -20,10 +20,10 @@ namespace wfa_STR_ProjetoFinal
     public partial class Form1 : Form
     {
         Thread threadRecebimentosPacotes = null;
-        Thread threadDispositivo = null; // temporário
-        Thread[] listaThreadsDispositivos; // lista de dispositivos para monitoramento simultâneo
-        UnidadeMonitoramentoDados[] listaUnidadeMonitoramento;
-        JSON_Dados_Corrente dadosRecebidosEmFormatoJSON;
+        Thread threadDispositivo = null;
+        //Thread[] listaThreadsDispositivos;
+        //UnidadeMonitoramentoDados[] listaUnidadeMonitoramento;
+        JSON_Dados_Corrente dadosRecebidosJSON;
         UdpClient udpServer = null;
         IPEndPoint remoteEP = null;
         string mensagemRecebida;
@@ -32,9 +32,6 @@ namespace wfa_STR_ProjetoFinal
         private List<int> dadosPlotarGrafico = new List<int>();
         Boolean pararRecebimentoDados = false;
         private Stopwatch marcadorTempoCurto;
-        double correnteA = 0;
-        double correnteB = 0;
-        double correnteC = 0;
         double correnteMedia = 0;
         double correnteNominal = 600;
         double dial = 0.25;
@@ -43,7 +40,7 @@ namespace wfa_STR_ProjetoFinal
 
         public Form1()
         {
-            Control.CheckForIllegalCrossThreadCalls = false; // possibilita que componentes sejam chamados por threads diferentes
+            Control.CheckForIllegalCrossThreadCalls = false; 
             InitializeComponent();
 
             formsPlotPacotesRecebidos.Plot.Title("Taxa de Pacotes Recebidos", true, Color.Black, 12.0f);
@@ -51,7 +48,6 @@ namespace wfa_STR_ProjetoFinal
 
         private void buttonIniciar_Click(object sender, EventArgs e)
         {
-            // inicializações de interface
             buttonIniciar.Enabled = false;
             buttonParar.Enabled = true;
             timerPlotSinaisRecebidos.Start();
@@ -59,7 +55,6 @@ namespace wfa_STR_ProjetoFinal
             dadosPlotarGrafico.Clear();
             pararRecebimentoDados = false;
 
-            // conexão UDP
             udpServer = new UdpClient(11000);
             remoteEP = new IPEndPoint(IPAddress.Any, 11000);
 
@@ -77,17 +72,15 @@ namespace wfa_STR_ProjetoFinal
 
         private void buttonParar_Click(object sender, EventArgs e)
         {
-            // parte 0: inicializações de interface
             buttonParar.Enabled = false;
-            timerPlotSinaisRecebidos.Stop(); //para plotar sinais
+            timerPlotSinaisRecebidos.Stop();
             contadorRecebimentoPacote = 0;
             dadosPlotarGrafico.Clear();
             buttonIniciar.Enabled = true;
             pararRecebimentoDados = true;
             textBoxCorrenteAtual.Text = "";
             textBoxTimerControleCurto.Text = "";
-
-            //// parte 1: para os objetos equivalentes a unidades geradoras            
+           
             //for (int i = 0; i < listaUnidadesGeradorasDadosMedicao.Length; i++)
             //{
             //    listaUnidadesGeradorasDadosMedicao[i].pararEnvio = true; // vai forçar as threads pararem
@@ -95,12 +88,10 @@ namespace wfa_STR_ProjetoFinal
             //Thread.Sleep(500);
             //listaUnidadesGeradorasDadosMedicao = null;
 
-            // parte 2: fecha a conexão UDP
             udpServer.Close();
             threadRecebimentosPacotes.Abort();
             threadDispositivo.Abort();
         }
-
 
         Boolean threadAberta = false;
         double correnteSendoAnalisada = 0;
@@ -113,12 +104,9 @@ namespace wfa_STR_ProjetoFinal
 
                 bytesRecebidos = udpServer.Receive(ref remoteEP);
                 mensagemRecebida = Encoding.ASCII.GetString(bytesRecebidos);
-                dadosRecebidosEmFormatoJSON = JsonConvert.DeserializeObject<JSON_Dados_Corrente>(mensagemRecebida);
+                dadosRecebidosJSON = JsonConvert.DeserializeObject<JSON_Dados_Corrente>(mensagemRecebida);
 
-                correnteA = dadosRecebidosEmFormatoJSON.Ia;
-                correnteB = dadosRecebidosEmFormatoJSON.Ib;
-                correnteC = dadosRecebidosEmFormatoJSON.Ic;
-                correnteMedia = (correnteA + correnteB + correnteC) / 3;
+                correnteMedia = (dadosRecebidosJSON.Ia + dadosRecebidosJSON.Ib + dadosRecebidosJSON.Ic) / 3;
 
                 textBoxCorrenteAtual.Text = correnteMedia.ToString() + " A";
                 toolStripTextBoxConexao.Text = "UDP (" + remoteEP.Address.ToString() + ")";
@@ -156,8 +144,6 @@ namespace wfa_STR_ProjetoFinal
                 timerComecou = true;
             }
 
-            // Como atualizar o tempo de atuação quando o valor da corrente aumenta ou abaixa em relação ao anterior?
-
             // seguindo a curva muito-inversa e os valores adotados no vídeo de exemplo
             tempoAtuacao = dial * (13.5 / ((correnteCCMax / corrente) - 1));
             textBoxTempoAtuacao.Text = tempoAtuacao.ToString();
@@ -180,33 +166,33 @@ namespace wfa_STR_ProjetoFinal
             }
         }
 
-        private void timerPlotaModulo1SinaisEnviados_Tick(object sender, EventArgs e)
-        {
-            if (dadosPlotarGrafico.Count > 300) // se tiver muitas amostras, zera
-            {
-                dadosPlotarGrafico.Clear();
-            }
-            else
-            {
-                dadosPlotarGrafico.Add(contadorRecebimentoPacote);
-            }
-            contadorRecebimentoPacote = 0; // zera contagem
+        //private void timerPlotaModulo1SinaisEnviados_Tick(object sender, EventArgs e)
+        //{
+        //    if (dadosPlotarGrafico.Count > 300) // se tiver muitas amostras, zera
+        //    {
+        //        dadosPlotarGrafico.Clear();
+        //    }
+        //    else
+        //    {
+        //        dadosPlotarGrafico.Add(contadorRecebimentoPacote);
+        //    }
+        //    contadorRecebimentoPacote = 0; // zera contagem
 
 
-            // atualiza a visualização do gráfico
-            double[] ys = new double[dadosPlotarGrafico.Count];
-            double[] xs = DataGen.Consecutive(dadosPlotarGrafico.Count);
-            for (int i = 0; i < dadosPlotarGrafico.Count; i++)
-            {
-                ys[i] = (double)correnteMedia;
-            }
-            formsPlotPacotesRecebidos.Plot.Clear();
-            if (dadosPlotarGrafico.Count > 1)
-            {
-                formsPlotPacotesRecebidos.Plot.AddScatterLines(xs, ys, Color.Blue, 2);
-                formsPlotPacotesRecebidos.Refresh();
-            }
-        }
+        //    // atualiza a visualização do gráfico
+        //    double[] ys = new double[dadosPlotarGrafico.Count];
+        //    double[] xs = DataGen.Consecutive(dadosPlotarGrafico.Count);
+        //    for (int i = 0; i < dadosPlotarGrafico.Count; i++)
+        //    {
+        //        ys[i] = (double)correnteMedia;
+        //    }
+        //    formsPlotPacotesRecebidos.Plot.Clear();
+        //    if (dadosPlotarGrafico.Count > 1)
+        //    {
+        //        formsPlotPacotesRecebidos.Plot.AddScatterLines(xs, ys, Color.Blue, 2);
+        //        formsPlotPacotesRecebidos.Refresh();
+        //    }
+        //}
 
     } // -------- FIM CLASSE ---------
 
