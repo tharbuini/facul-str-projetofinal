@@ -146,7 +146,7 @@ namespace wfa_STR_ProjetoFinal
 
             // seguindo a curva muito-inversa e os valores adotados no vídeo de exemplo
             tempoAtuacao = dial * (13.5 / ((correnteCCMax / corrente) - 1));
-            textBoxTempoAtuacao.Text = tempoAtuacao.ToString();
+            textBoxTempoEspera.Text = tempoAtuacao.ToString();
         }
 
         private void timerControleCurto_Tick(object sender, EventArgs e)

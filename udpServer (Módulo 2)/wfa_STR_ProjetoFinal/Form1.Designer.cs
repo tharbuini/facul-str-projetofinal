@@ -33,6 +33,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.formsPlotPacotesRecebidos = new ScottPlot.FormsPlot();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxTempoEspera = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxTimerControleCurto = new System.Windows.Forms.TextBox();
             this.buttonParar = new System.Windows.Forms.Button();
@@ -44,8 +46,6 @@
             this.textBoxCorrenteAtual = new System.Windows.Forms.TextBox();
             this.timerControleCurto = new System.Windows.Forms.Timer(this.components);
             this.timerPlotSinaisRecebidos = new System.Windows.Forms.Timer(this.components);
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxTempoAtuacao = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -90,7 +90,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.textBoxTempoAtuacao);
+            this.groupBox2.Controls.Add(this.textBoxTempoEspera);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.textBoxTimerControleCurto);
             this.groupBox2.Controls.Add(this.buttonParar);
@@ -106,6 +106,25 @@
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Controle";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 102);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(133, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Tempo de Espera Máximo:";
+            // 
+            // textBoxTempoEspera
+            // 
+            this.textBoxTempoEspera.Location = new System.Drawing.Point(8, 117);
+            this.textBoxTempoEspera.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxTempoEspera.Name = "textBoxTempoEspera";
+            this.textBoxTempoEspera.ReadOnly = true;
+            this.textBoxTempoEspera.Size = new System.Drawing.Size(194, 20);
+            this.textBoxTempoEspera.TabIndex = 7;
             // 
             // label2
             // 
@@ -205,25 +224,6 @@
             // 
             this.timerPlotSinaisRecebidos.Interval = 1000;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 102);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(101, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Tempo de Atuação:";
-            // 
-            // textBoxTempoAtuacao
-            // 
-            this.textBoxTempoAtuacao.Location = new System.Drawing.Point(8, 117);
-            this.textBoxTempoAtuacao.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxTempoAtuacao.Name = "textBoxTempoAtuacao";
-            this.textBoxTempoAtuacao.ReadOnly = true;
-            this.textBoxTempoAtuacao.Size = new System.Drawing.Size(194, 20);
-            this.textBoxTempoAtuacao.TabIndex = 7;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -261,7 +261,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxTimerControleCurto;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxTempoAtuacao;
+        private System.Windows.Forms.TextBox textBoxTempoEspera;
     }
 }
 
