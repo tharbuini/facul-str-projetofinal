@@ -119,17 +119,17 @@
             // 
             // textBoxTempoEspera
             // 
-            this.textBoxTempoEspera.Location = new System.Drawing.Point(8, 117);
+            this.textBoxTempoEspera.Location = new System.Drawing.Point(138, 99);
             this.textBoxTempoEspera.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTempoEspera.Name = "textBoxTempoEspera";
             this.textBoxTempoEspera.ReadOnly = true;
-            this.textBoxTempoEspera.Size = new System.Drawing.Size(194, 20);
+            this.textBoxTempoEspera.Size = new System.Drawing.Size(64, 20);
             this.textBoxTempoEspera.TabIndex = 7;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 154);
+            this.label2.Location = new System.Drawing.Point(6, 131);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(36, 13);
@@ -138,7 +138,7 @@
             // 
             // textBoxTimerControleCurto
             // 
-            this.textBoxTimerControleCurto.Location = new System.Drawing.Point(8, 169);
+            this.textBoxTimerControleCurto.Location = new System.Drawing.Point(8, 146);
             this.textBoxTimerControleCurto.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTimerControleCurto.Name = "textBoxTimerControleCurto";
             this.textBoxTimerControleCurto.ReadOnly = true;
@@ -222,7 +222,7 @@
             // 
             // timerPlotSinaisRecebidos
             // 
-            this.timerPlotSinaisRecebidos.Interval = 1000;
+            this.timerPlotSinaisRecebidos.Interval = 500;
             // 
             // Form1
             // 

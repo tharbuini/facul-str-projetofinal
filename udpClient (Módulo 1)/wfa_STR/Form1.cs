@@ -23,7 +23,7 @@ namespace wfa_STR
         UdpClient udpClient = null;
         IPEndPoint ipConexaoRecebimentoUDP = null;
         IPEndPoint ipConexaoEnvioUDP = null;
-        private List<int> dadosPlotarGrafico= new List<int>();
+        private List<int> dadosPlotarGrafico = new List<int>();
         JSON_DADOS_RECEBIDOS_CORRENTE dadosRecebidosEmFormatoJSON;
         byte[] bytesRecebidos;
         int contadorRecebimentoPacote = 0;
@@ -77,10 +77,6 @@ namespace wfa_STR
 
             ipConexaoRecebimentoUDP = new IPEndPoint(IPAddress.Any, 11001);
 
-            // NÃO FUNCIONA AINDA
-            threadRecebimentosPacotes = new Thread(RecebimentoPacotesUDP);
-            threadRecebimentosPacotes.Start();
-
             // parte 2: gera objetos equivalentes a unidades geradoras
             int quantidadeUnidGeradoras = listViewUnidGeradora.Items.Count;
             listaUnidadesGeradorasDadosMedicao = new UnidadeGeradoraDadosMedicao[quantidadeUnidGeradoras];
@@ -114,6 +110,7 @@ namespace wfa_STR
             timerPlotSinaisEnviados.Stop(); //para plotar sinais
             contadorRecebimentoPacote = 0;
             dadosPlotarGrafico.Clear();
+            formsPlotPacotesEnviados.Plot.Clear();
             buttonIniciarEnvio.Enabled = true;
             pararRecebimentoDados = true;
 
@@ -133,6 +130,7 @@ namespace wfa_STR
         private void buttonLimpar_Click(object sender, EventArgs e)
         {
             listViewUnidGeradora.Items.Clear();
+            formsPlotPacotesEnviados.Plot.Clear();
         }
 
         private void buttonAdicionar_Click(object sender, EventArgs e)
@@ -141,16 +139,35 @@ namespace wfa_STR
             numericUpDownCodUnidGen.Value = numericUpDownCodUnidGen.Value + 1;
         }
 
-        private void RecebimentoPacotesUDP()
+        private void timerPlotSinaisEnviados_Tick(object sender, EventArgs e)
         {
-            while (true)
+            if (dadosPlotarGrafico.Count > 300) // se tiver muitas amostras, zera
             {
-                if (pararRecebimentoDados) // para o recebimento caso a flag seja True
-                    return;
-                bytesRecebidos = udpClient.Receive(ref ipConexaoRecebimentoUDP);
-                contadorRecebimentoPacote++;
+                dadosPlotarGrafico.Clear();
+            }
+            else
+            {
+                //dadosPlotarGrafico.Add(contadorRecebimentoPacote);
+                dadosPlotarGrafico.Add(Convert.ToInt32(listaUnidadesGeradorasDadosMedicao[0].valorCorrente));
+            }
+            contadorRecebimentoPacote = 0; // zera contagem
+
+
+            // atualiza visualização do gráfico
+            double[] ys = new double[dadosPlotarGrafico.Count];
+            double[] xs = DataGen.Consecutive(dadosPlotarGrafico.Count);
+            for (int i = 0; i < dadosPlotarGrafico.Count; i++)
+            {
+                ys[i] = (double)dadosPlotarGrafico[i];
+            }
+            formsPlotPacotesEnviados.Plot.Clear();
+            if (dadosPlotarGrafico.Count > 1)
+            {
+                formsPlotPacotesEnviados.Plot.AddScatterLines(xs, ys, Color.Blue, 2);
+                formsPlotPacotesEnviados.Refresh();
             }
         }
+    }
 
         public class JSON_DADOS_RECEBIDOS_CORRENTE
         {
@@ -185,7 +202,7 @@ namespace wfa_STR
             [ReadOnly(true)]
             [Description("Quantidade de pacotes enviados")]
             [DisplayName("Pacotes enviados")]
-            public int contadoPacotesEnviados { get; set; }
+            public int contadorPacotesEnviados { get; set; }
 
             [Browsable(false)]
             public bool pararEnvio { get; set; }
@@ -202,69 +219,53 @@ namespace wfa_STR
                 freqEnvioPacotesMS = p_freqEnvioPacotesMS;
                 usocketConexaoUDP = p_usocketConexaoUDP;
                 ipConexaoEnvioUDP = p_ipConexaoEnvioUDP;
-                contadoPacotesEnviados = 0;
+                contadorPacotesEnviados = 0;
                 pararEnvio = false;
             }
 
-            public void EnviaPacotesUDPFrequentemente() // avi ser usado como uma thread
+            public void EnviaPacotesUDPFrequentemente() // usado como thread
             {
                 string formatoPacote;
                 string corrente;
                 byte[] bytes;
+                int correntePrev = 0;
 
+
+                // caso a corrente não tenha alteração em relação à última, não envia pacotes
                 while (true)
                 {
-                    corrente = Convert.ToString(valorCorrente);
-                    if (contadoPacotesEnviados < 65000)
-                        contadoPacotesEnviados++;
-                    else
-                        contadoPacotesEnviados = 0;
-                    formatoPacote = "{'Ia': " + corrente +
-                                    " ,'Ib': " + corrente +
-                                    " ,'Ic': " + corrente +
-                                    " ,'numPacote': " + contadoPacotesEnviados.ToString() +
-                                    " ,'idDispositivo': " + codDestaUnidade.ToString() + "}";
+                    if (valorCorrente != correntePrev)
+                    {
+                        corrente = Convert.ToString(valorCorrente);
+                        correntePrev = valorCorrente;
 
-                    bytes = Encoding.ASCII.GetBytes(formatoPacote);
-                    nossoMutex.WaitOne(); // bloqueia esta região para uma simples thread acessar
-                    if (usocketConexaoUDP != null)
-                        usocketConexaoUDP.Send(bytes, bytes.Length);
-                    nossoMutex.ReleaseMutex(); // desbloqueia esta região 
-                    if (pararEnvio)
-                        return;
-                    else // está em curto
-                        Thread.Sleep(1); // sleep() para não sobrecarregar
+                        if (contadorPacotesEnviados < 65000)
+                            contadorPacotesEnviados++;
+                        else
+                            contadorPacotesEnviados = 0;
+                        formatoPacote = "{'Ia': " + corrente +
+                                        " ,'Ib': " + corrente +
+                                        " ,'Ic': " + corrente +
+                                        " ,'numPacote': " + contadorPacotesEnviados.ToString() +
+                                        " ,'idDispositivo': " + codDestaUnidade.ToString() + "}";
+
+                        bytes = Encoding.ASCII.GetBytes(formatoPacote);
+                        nossoMutex.WaitOne(); // bloqueia esta região para uma simples thread acessar
+                        if (usocketConexaoUDP != null)
+                            usocketConexaoUDP.Send(bytes, bytes.Length);
+                        nossoMutex.ReleaseMutex(); // desbloqueia esta região 
+                        if (pararEnvio)
+                            return;
+                        else // está em curto
+                            Thread.Sleep(1); // sleep() para não sobrecarregar
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
             }
         }
-
-        private void timerPlotSinaisEnviados_Tick(object sender, EventArgs e)
-        {
-            if (dadosPlotarGrafico.Count > 300) // se tiver muitas amostras, zera
-            {
-                dadosPlotarGrafico.Clear();
-            }
-            else
-            {
-                dadosPlotarGrafico.Add(contadorRecebimentoPacote);
-            }
-            contadorRecebimentoPacote = 0; // zera contagem
-
-
-            // atualiza visualização do gráfico
-            double[] ys = new double[dadosPlotarGrafico.Count];
-            double[] xs = DataGen.Consecutive(dadosPlotarGrafico.Count);
-            for (int i = 0; i < dadosPlotarGrafico.Count; i++)
-            {
-                ys[i] = (double)dadosPlotarGrafico[i];
-            }
-            formsPlotPacotesEnviados.Plot.Clear();
-            if (dadosPlotarGrafico.Count > 1)
-            {
-                formsPlotPacotesEnviados.Plot.AddScatterLines(xs, ys, Color.Blue, 2);
-                formsPlotPacotesEnviados.Refresh();
-            }
-        }
     }
-}
+
 

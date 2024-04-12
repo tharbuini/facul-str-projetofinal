@@ -181,7 +181,7 @@
             this.numericUpDownFreqEnvio.Size = new System.Drawing.Size(152, 20);
             this.numericUpDownFreqEnvio.TabIndex = 21;
             this.numericUpDownFreqEnvio.Value = new decimal(new int[] {
-            50,
+            500,
             0,
             0,
             0});
@@ -321,7 +321,7 @@
             // 
             // timerPlotSinaisEnviados
             // 
-            this.timerPlotSinaisEnviados.Interval = 1000;
+            this.timerPlotSinaisEnviados.Interval = 500;
             this.timerPlotSinaisEnviados.Tick += new System.EventHandler(this.timerPlotSinaisEnviados_Tick);
             // 
             // Form1

@@ -32,11 +32,11 @@ namespace wfa_STR_ProjetoFinal
         private List<int> dadosPlotarGrafico = new List<int>();
         Boolean pararRecebimentoDados = false;
         private Stopwatch marcadorTempoCurto;
+        
         double correnteMedia = 0;
         double correnteNominal = 600;
         double dial = 0.25;
         double correnteCCMax = 10000;
-
 
         public Form1()
         {
@@ -166,32 +166,38 @@ namespace wfa_STR_ProjetoFinal
             }
         }
 
-        //private void timerPlotaModulo1SinaisEnviados_Tick(object sender, EventArgs e)
+        private void timerPlotSinaisRecebidos_Tick(object sender, EventArgs e)
+        {
+            if (dadosPlotarGrafico.Count > 300) // se tiver muitas amostras, zera
+            {
+                dadosPlotarGrafico.Clear();
+            }
+            else
+            {
+                dadosPlotarGrafico.Add(Convert.ToInt32(correnteMedia));
+            }
+            contadorRecebimentoPacote = 0; // zera contagem
+
+            textBoxTempoEspera.Text = contadorRecebimentoPacote.ToString();
+
+            // atualiza a visualização do gráfico
+            double[] ys = new double[dadosPlotarGrafico.Count];
+            double[] xs = DataGen.Consecutive(dadosPlotarGrafico.Count);
+            for (int i = 0; i < dadosPlotarGrafico.Count; i++)
+            {
+                ys[i] = (double)dadosPlotarGrafico[i];
+            }
+            formsPlotPacotesRecebidos.Plot.Clear();
+            if (dadosPlotarGrafico.Count > 1)
+            {
+                formsPlotPacotesRecebidos.Plot.AddScatterLines(xs, ys, Color.Blue, 2);
+                formsPlotPacotesRecebidos.Refresh();
+            }
+        }
+
+        //public void Alarme()
         //{
-        //    if (dadosPlotarGrafico.Count > 300) // se tiver muitas amostras, zera
-        //    {
-        //        dadosPlotarGrafico.Clear();
-        //    }
-        //    else
-        //    {
-        //        dadosPlotarGrafico.Add(contadorRecebimentoPacote);
-        //    }
-        //    contadorRecebimentoPacote = 0; // zera contagem
 
-
-        //    // atualiza a visualização do gráfico
-        //    double[] ys = new double[dadosPlotarGrafico.Count];
-        //    double[] xs = DataGen.Consecutive(dadosPlotarGrafico.Count);
-        //    for (int i = 0; i < dadosPlotarGrafico.Count; i++)
-        //    {
-        //        ys[i] = (double)correnteMedia;
-        //    }
-        //    formsPlotPacotesRecebidos.Plot.Clear();
-        //    if (dadosPlotarGrafico.Count > 1)
-        //    {
-        //        formsPlotPacotesRecebidos.Plot.AddScatterLines(xs, ys, Color.Blue, 2);
-        //        formsPlotPacotesRecebidos.Refresh();
-        //    }
         //}
 
     } // -------- FIM CLASSE ---------
