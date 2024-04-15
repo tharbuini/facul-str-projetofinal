@@ -44,8 +44,8 @@
             this.toolStripTextBoxConexao = new System.Windows.Forms.ToolStripTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxCorrenteAtual = new System.Windows.Forms.TextBox();
+            this.timerPlotPacotesRecebidos = new System.Windows.Forms.Timer(this.components);
             this.timerControleCurto = new System.Windows.Forms.Timer(this.components);
-            this.timerPlotSinaisRecebidos = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -215,14 +215,15 @@
             this.textBoxCorrenteAtual.Size = new System.Drawing.Size(194, 20);
             this.textBoxCorrenteAtual.TabIndex = 0;
             // 
+            // timerPlotPacotesRecebidos
+            // 
+            this.timerPlotPacotesRecebidos.Interval = 500;
+            this.timerPlotPacotesRecebidos.Tick += new System.EventHandler(this.timerPlotPacotesRecebidos_Tick);
+            // 
             // timerControleCurto
             // 
-            this.timerControleCurto.Interval = 50;
+            this.timerControleCurto.Interval = 1000;
             this.timerControleCurto.Tick += new System.EventHandler(this.timerControleCurto_Tick);
-            // 
-            // timerPlotSinaisRecebidos
-            // 
-            this.timerPlotSinaisRecebidos.Interval = 500;
             // 
             // Form1
             // 
@@ -249,19 +250,19 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private ScottPlot.FormsPlot formsPlotPacotesRecebidos;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Timer timerControleCurto;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxCorrenteAtual;
         private System.Windows.Forms.Button buttonParar;
         private System.Windows.Forms.Button buttonIniciar;
-        private System.Windows.Forms.Timer timerPlotSinaisRecebidos;
+        private System.Windows.Forms.Timer timerPlotPacotesRecebidos;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBoxConexao;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxTimerControleCurto;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxTempoEspera;
+        private System.Windows.Forms.Timer timerControleCurto;
     }
 }
 

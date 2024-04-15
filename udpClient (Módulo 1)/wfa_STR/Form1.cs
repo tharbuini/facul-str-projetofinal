@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ScottPlot.Drawing.Colormaps;
 
 namespace wfa_STR
 {
@@ -24,17 +25,13 @@ namespace wfa_STR
         IPEndPoint ipConexaoRecebimentoUDP = null;
         IPEndPoint ipConexaoEnvioUDP = null;
         private List<int> dadosPlotarGrafico = new List<int>();
-        JSON_DADOS_RECEBIDOS_CORRENTE dadosRecebidosEmFormatoJSON;
-        byte[] bytesRecebidos;
-        int contadorRecebimentoPacote = 0;
         public Mutex nossoMutex = new Mutex();
-        bool pararRecebimentoDados = false;
 
         public Form1()
         {
             InitializeComponent();
             Control.CheckForIllegalCrossThreadCalls = false; // possibilita que componentes sejam chamados por threads diferentes                                    
-            // passo 1: encontra o IP e atribui a classe principal de dados e controle 
+
             formsPlotPacotesEnviados.Plot.Title("Taxa pacotes recebidos de subestação", true, Color.Black, 12.0f);
         }
         private void listViewUnidGeradora_SelectedIndexChanged(object sender, EventArgs e)
@@ -67,9 +64,7 @@ namespace wfa_STR
             propertyGridUnidGeradoras.Enabled = true;
             buttonPararEnvio.Enabled = true;
             timerPlotSinaisEnviados.Start(); // para plotar sinais
-            contadorRecebimentoPacote = 0;
             dadosPlotarGrafico.Clear();
-            pararRecebimentoDados = false;
 
             // parte 1: inicia a conexão UDP
             udpClient = new UdpClient();
@@ -108,23 +103,35 @@ namespace wfa_STR
             propertyGridUnidGeradoras.Enabled = false;
             buttonPararEnvio.Enabled = false;
             timerPlotSinaisEnviados.Stop(); //para plotar sinais
-            contadorRecebimentoPacote = 0;
             dadosPlotarGrafico.Clear();
             formsPlotPacotesEnviados.Plot.Clear();
             buttonIniciarEnvio.Enabled = true;
-            pararRecebimentoDados = true;
 
             // parte 1: para os objetos equivalentes a unidades geradoras            
             for (int i = 0; i < listaUnidadesGeradorasDadosMedicao.Length; i++)
             {
                 listaUnidadesGeradorasDadosMedicao[i].pararEnvio = true; // vai forçar as threads pararem
             }
-            Thread.Sleep(500);
+            //Thread.Sleep(500);
             listaUnidadesGeradorasDadosMedicao = null;
 
+            // enviar último pacote zerado
+            string formatoPacote = "{'Ia': " + '0' + " ,'Ib': " + '0' + " ,'Ic': " + '0' + "}";
+            byte[] bytes = Encoding.ASCII.GetBytes(formatoPacote);
+            nossoMutex.WaitOne(); // bloqueia esta região para uma simples thread acessar
+            if (udpClient != null)
+                udpClient.Send(bytes, bytes.Length);
+
             // parte 2: fecha a conexão UDP
-            udpClient.Close();
-            threadRecebimentosPacotes.Abort();
+            if (udpClient != null) 
+            { 
+                udpClient.Close();
+            }
+            if (threadRecebimentosPacotes != null)
+            { 
+                threadRecebimentosPacotes.Abort();
+            }
+
         }
 
         private void buttonLimpar_Click(object sender, EventArgs e)
@@ -147,10 +154,8 @@ namespace wfa_STR
             }
             else
             {
-                //dadosPlotarGrafico.Add(contadorRecebimentoPacote);
                 dadosPlotarGrafico.Add(Convert.ToInt32(listaUnidadesGeradorasDadosMedicao[0].valorCorrente));
             }
-            contadorRecebimentoPacote = 0; // zera contagem
 
 
             // atualiza visualização do gráfico
@@ -158,7 +163,7 @@ namespace wfa_STR
             double[] xs = DataGen.Consecutive(dadosPlotarGrafico.Count);
             for (int i = 0; i < dadosPlotarGrafico.Count; i++)
             {
-                ys[i] = (double)dadosPlotarGrafico[i];
+                ys[i] = dadosPlotarGrafico[i];
             }
             formsPlotPacotesEnviados.Plot.Clear();
             if (dadosPlotarGrafico.Count > 1)
@@ -236,6 +241,9 @@ namespace wfa_STR
                 {
                     if (valorCorrente != correntePrev)
                     {
+                        if (pararEnvio)
+                            return;
+                        
                         corrente = Convert.ToString(valorCorrente);
                         correntePrev = valorCorrente;
 
@@ -254,10 +262,8 @@ namespace wfa_STR
                         if (usocketConexaoUDP != null)
                             usocketConexaoUDP.Send(bytes, bytes.Length);
                         nossoMutex.ReleaseMutex(); // desbloqueia esta região 
-                        if (pararEnvio)
-                            return;
-                        else // está em curto
-                            Thread.Sleep(1); // sleep() para não sobrecarregar
+
+                        
                     }
                     else
                     {

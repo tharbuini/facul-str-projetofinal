@@ -50,7 +50,6 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.timerRecepcao = new System.Windows.Forms.Timer(this.components);
             this.timerPlotSinaisEnviados = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownValorCorrente)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -121,7 +120,7 @@
             this.numericUpDownValorCorrente.Location = new System.Drawing.Point(116, 67);
             this.numericUpDownValorCorrente.Margin = new System.Windows.Forms.Padding(2);
             this.numericUpDownValorCorrente.Maximum = new decimal(new int[] {
-            1000,
+            100000,
             0,
             0,
             0});
@@ -315,10 +314,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Gerencia unidades geradoras";
             // 
-            // timerRecepcao
-            // 
-            this.timerRecepcao.Interval = 500;
-            // 
             // timerPlotSinaisEnviados
             // 
             this.timerPlotSinaisEnviados.Interval = 500;
@@ -367,7 +362,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox1;
         private ScottPlot.FormsPlot formsPlotPacotesEnviados;
-        private System.Windows.Forms.Timer timerRecepcao;
         private System.Windows.Forms.Timer timerPlotSinaisEnviados;
     }
 }
