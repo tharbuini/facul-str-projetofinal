@@ -70,7 +70,6 @@ namespace wfa_STR
             udpClient = new UdpClient();
             udpClient.Connect("127.0.0.1", 11000);
 
-            ipConexaoRecebimentoUDP = new IPEndPoint(IPAddress.Any, 11001);
 
             // parte 2: gera objetos equivalentes a unidades geradoras
             int quantidadeUnidGeradoras = listViewUnidGeradora.Items.Count;
@@ -85,7 +84,7 @@ namespace wfa_STR
                 codigo = Convert.ToInt16(listViewUnidGeradora.Items[i].SubItems[0].Text);
                 freqEnvio = Convert.ToInt16(listViewUnidGeradora.Items[i].SubItems[1].Text);
                 correnteOriginal = Convert.ToInt16(listViewUnidGeradora.Items[i].SubItems[2].Text);
-                listaUnidadesGeradorasDadosMedicao[i] = new UnidadeGeradoraDadosMedicao(udpClient, ipConexaoEnvioUDP, nossoMutex, correnteOriginal, codigo, freqEnvio);
+                listaUnidadesGeradorasDadosMedicao[i] = new UnidadeGeradoraDadosMedicao(udpClient, nossoMutex, correnteOriginal, codigo, freqEnvio);
             }
 
             // parte 3: gera threads
@@ -116,7 +115,7 @@ namespace wfa_STR
             listaUnidadesGeradorasDadosMedicao = null;
 
             // enviar último pacote zerado
-            string formatoPacote = "{'Ia': " + '0' + " ,'Ib': " + '0' + " ,'Ic': " + '0' + "}";
+            string formatoPacote = "{'Ia': " + '0' + " ,'Ib': " + '0' + " ,'Ic': " + '0' + " ,'idDispositivo': " + "-1" + "}";
             byte[] bytes = Encoding.ASCII.GetBytes(formatoPacote);
             nossoMutex.WaitOne(); // bloqueia esta região para uma simples thread acessar
             if (udpClient != null)
@@ -138,6 +137,7 @@ namespace wfa_STR
         {
             listViewUnidGeradora.Items.Clear();
             formsPlotPacotesEnviados.Plot.Clear();
+            numericUpDownCodUnidGen.Value = 1;
         }
 
         private void buttonAdicionar_Click(object sender, EventArgs e)
@@ -156,7 +156,6 @@ namespace wfa_STR
             {
                 dadosPlotarGrafico.Add(Convert.ToInt32(listaUnidadesGeradorasDadosMedicao[0].valorCorrente));
             }
-
 
             // atualiza visualização do gráfico
             double[] ys = new double[dadosPlotarGrafico.Count];
@@ -216,14 +215,13 @@ namespace wfa_STR
             public UdpClient usocketConexaoUDP;
             public IPEndPoint ipConexaoEnvioUDP;
 
-            public UnidadeGeradoraDadosMedicao(UdpClient p_usocketConexaoUDP, IPEndPoint p_ipConexaoEnvioUDP, Mutex p_nossoMutex, int p_valorCorrente, int p_codDestaUnidade, int p_freqEnvioPacotesMS)
+            public UnidadeGeradoraDadosMedicao(UdpClient p_usocketConexaoUDP, Mutex p_nossoMutex, int p_valorCorrente, int p_codDestaUnidade, int p_freqEnvioPacotesMS)
             {
                 nossoMutex = p_nossoMutex;
                 valorCorrente = p_valorCorrente;
                 codDestaUnidade = p_codDestaUnidade;
                 freqEnvioPacotesMS = p_freqEnvioPacotesMS;
                 usocketConexaoUDP = p_usocketConexaoUDP;
-                ipConexaoEnvioUDP = p_ipConexaoEnvioUDP;
                 contadorPacotesEnviados = 0;
                 pararEnvio = false;
             }

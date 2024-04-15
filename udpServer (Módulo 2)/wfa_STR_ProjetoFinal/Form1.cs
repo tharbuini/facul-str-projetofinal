@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -21,8 +22,9 @@ namespace wfa_STR_ProjetoFinal
     {
         Thread threadRecebimentosPacotes = null;
         Thread threadDispositivo = null;
-        //Thread[] listaThreadsDispositivos;
-        //UnidadeMonitoramentoDados[] listaUnidadeMonitoramento;
+        Thread[] listaThreadsDispositivos;
+
+        private List<UnidadeMonitoramentoDados> listaDispositivos = new List<UnidadeMonitoramentoDados>();
         JSON_Dados_Corrente dadosRecebidosJSON;
         UdpClient udpServer = null;
         IPEndPoint remoteEP = null;
@@ -31,7 +33,6 @@ namespace wfa_STR_ProjetoFinal
         int contadorRecebimentoPacote = 0;
         private List<int> dadosPlotarGrafico = new List<int>();
         Boolean pararRecebimentoDados = false;
-        private Stopwatch marcadorTempoCurto;
         
         double correnteMedia = 0;
         double correnteNominal = 600;
@@ -60,17 +61,16 @@ namespace wfa_STR_ProjetoFinal
 
             toolStripTextBoxConexao.Text = "UDP (" + remoteEP.Address.ToString() + ")";
 
+            // Inicializa a lista de dispositivos
+            listaDispositivos = new List<UnidadeMonitoramentoDados>();
+            for (int i = 0; i <= 5; i++)
+            {
+                listaDispositivos.Add(null);
+            }
+
+            // Inicia o recebimento de pacotes
             threadRecebimentosPacotes = new Thread(RecebimentoPacotesUDP);
             threadRecebimentosPacotes.Start();
-
-            // RECEBE PACOTES SOMENTE DO DISPOSITIVO COM ID IGUAL
-            // gera threads 
-            //for (int i = 0; i < quantidadeUnidadesGeradoras; i++)
-            //{
-            //    listaThreadsDispositivos[i] = new Thread(new ThreadStart(listaUnidadeMonitoramento[i].AnalisaDados));
-            //    listaThreadsDispositivos[i].Name = "Dispositivo de Monitoramento" + i.ToString();
-            //    listaThreadsDispositivos[i].Start();
-            //}
         }
 
         private void buttonParar_Click(object sender, EventArgs e)
@@ -84,36 +84,20 @@ namespace wfa_STR_ProjetoFinal
             textBoxCorrenteAtual.Text = "";
             textBoxTempoEspera.Text = "";
             textBoxTimerControleCurto.Text = "";
-            timer.Dispose();
 
-            //for (int i = 0; i < listaUnidadesGeradorasDadosMedicao.Length; i++)
-            //{
-            //    listaUnidadesGeradorasDadosMedicao[i].pararEnvio = true; // vai forçar as threads pararem
-            //}
-            //Thread.Sleep(500);
-            //listaUnidadesGeradorasDadosMedicao = null;
-
-            // encerrando conexão e threads
-            if (threadRecebimentosPacotes != null)
-            {
-                threadRecebimentosPacotes.Abort();
-            }
-
+            // Encerra a conexão UDP
             if (udpServer != null)
-            { 
+            {
                 udpServer.Close();
             }
 
-            if (threadDispositivo != null) 
-            { 
-                threadDispositivo.Abort();
+            // Aguarda o término da thread de recebimento de pacotes
+            if (threadRecebimentosPacotes != null && threadRecebimentosPacotes.IsAlive)
+            {
+                threadRecebimentosPacotes.Join();
             }
         }
 
-        // RECEBIMENTO DE PACOTES DELEGA PACOTES PARA CADA THREAD DE ACORDO COM ID?
-        // OU CADA UMA TEM QUE RECEBER? ----> ACHO QUE É ISSO
-        Boolean threadAberta = false;
-        double correnteSendoAnalisada = 0;
         private void RecebimentoPacotesUDP()
         {
             while (true)
@@ -125,114 +109,35 @@ namespace wfa_STR_ProjetoFinal
                 mensagemRecebida = Encoding.ASCII.GetString(bytesRecebidos);
                 dadosRecebidosJSON = JsonConvert.DeserializeObject<JSON_Dados_Corrente>(mensagemRecebida);
 
+                int id = dadosRecebidosJSON.idDispositivo;
                 correnteMedia = (dadosRecebidosJSON.Ia + dadosRecebidosJSON.Ib + dadosRecebidosJSON.Ic) / 3;
 
                 textBoxCorrenteAtual.Text = correnteMedia.ToString() + " A";
                 contadorRecebimentoPacote++;
 
-
-                if (correnteMedia >= correnteCCMax)
+                if (id != -1) 
                 {
-                    textBoxTempoEspera.Text = "0 s";
-                    //Alarme();
+
+                    if (listaDispositivos.Count <= id || listaDispositivos[id] == null)
+                    {
+                        // Cria uma nova instância de UnidadeMonitoramentoDados se ainda não existir
+                        UnidadeMonitoramentoDados dispositivo = new UnidadeMonitoramentoDados(id, correnteNominal, dial, correnteCCMax, correnteMedia);
+                        listaDispositivos[id] = dispositivo;
+                        Thread threadDispositivo = new Thread(() => dispositivo.AnalisaDados());
+                        threadDispositivo.Start();
+                    }
+                    else
+                    {
+                        // Atualiza os dados da instância existente de UnidadeMonitoramentoDados
+                        listaDispositivos[id].AtualizaCorrenteMedia(correnteMedia);
+                    }
                 }
-                else if (correnteMedia < correnteNominal && threadAberta)
-                {
-                    threadDispositivo.Abort();
-                    timer.Dispose();
-
-                    textBoxTempoEspera.Text = "";
-                    textBoxTimerControleCurto.Text = "";
-                }
-                //else if (((correnteMedia >= correnteNominal) && !threadAberta) || ((correnteMedia > correnteSendoAnalisada) && threadAberta))
-                else if ((correnteMedia > correnteNominal) && !threadAberta)
-                {
-                    threadDispositivo = new Thread(() => AnalisaDados(correnteMedia));
-                    threadDispositivo.Start();
-                    threadAberta = true;
-                    correnteSendoAnalisada = correnteMedia;
-                }
-            }
-        }
-
-        Boolean timerComecou = false;
-        Boolean estaEmCurto = false;
-        double tempoAtuacao = 0;
-
-        private System.Threading.Timer timer;
-        private double tempoRestanteEmSegundos;
-
-        private void AnalisaDados(double corrente)
-        {
-            while (true)
-            {
-                if (estaEmCurto)
-                {
-                    break;
-                }
-
-               
-                // seguindo a curva muito-inversa e os valores adotados no vídeo de exemplo
-                tempoAtuacao = dial * (13.5 / ((correnteCCMax / corrente) - 1)); 
-                textBoxTempoEspera.Text = tempoAtuacao.ToString() + " s";
-
-                if (!timerComecou)
-                {
-                    //marcadorTempoCurto = new Stopwatch();
-                    //marcadorTempoCurto.Start(); // inicia contagem de tempo
-                    //timerControleCurto.Start();
-                    
-                    tempoRestanteEmSegundos = 0;
-                    timer = new System.Threading.Timer(TimerCallback, null, 0, 10);
-                    
-                    timerComecou = true;
-                }
-            }
-        }
-
-        private void TimerCallback(object state)
-        {
-            // atualiza o tempo restante
-            tempoRestanteEmSegundos += 0.01;
-
-            // atualiza o texto do textbox com o tempo restante
-            if (InvokeRequired)
-            {
-                Invoke(new MethodInvoker(() => textBoxTimerControleCurto.Text = tempoRestanteEmSegundos.ToString("F2")));
-            }
-            else
-            {
-                textBoxTimerControleCurto.Text = tempoRestanteEmSegundos.ToString("F2");
-            }
-
-            if (tempoRestanteEmSegundos >= tempoAtuacao)
-            {
-                timer.Dispose(); // para o timer quando o tempo limite for atingido
-                Alarme();
-                //MessageBox.Show("Tempo limite atingido!");
             }
         }
 
         private void timerControleCurto_Tick(object sender, EventArgs e)
         {
 
-        //    double tempoDecorrido = marcadorTempoCurto.ElapsedMilliseconds / 1000;
-        //    textBoxTimerControleCurto.Text = Convert.ToString(tempoDecorrido) + " s";
-
-        //    if (tempoDecorrido < tempoAtuacao)
-        //    {
-        //        // espera
-        //    }
-        //    else
-        //    {
-        //        marcadorTempoCurto.Stop();
-        //        timerControleCurto.Stop();
-        //        timerComecou = false;
-        //        textBoxTimerControleCurto.Text = "Concluído em: " + Convert.ToString(marcadorTempoCurto.ElapsedMilliseconds / 1000) + " seg. Timer fechado";
-
-        //        // estaEmCurto = true;
-        //        // Alarme();
-        //    }
         }
 
         private void timerPlotPacotesRecebidos_Tick(object sender, EventArgs e)
@@ -262,10 +167,6 @@ namespace wfa_STR_ProjetoFinal
             }
         }
 
-        public void Alarme()
-        {
-            MessageBox.Show("Pacote enviado! ID: " + dadosRecebidosJSON.idDispositivo);
-        }
 
     } // -------- FIM CLASSE ---------
 
@@ -281,8 +182,80 @@ namespace wfa_STR_ProjetoFinal
 
     public class UnidadeMonitoramentoDados
     {
-        public void AnalisaDados() // vai ser usado como uma thread
+        private int dispositivoId;
+        private double correnteNominal;
+        private double correnteCCMax;
+        private double dial;
+        private double tempoAtuacao;
+        private double correnteMedia;
+
+        public UnidadeMonitoramentoDados(int id, double correnteNominal, double correnteCCMax, double correnteMedia, double dial)
         {
+            this.dispositivoId = id;
+            this.correnteNominal = correnteNominal;
+            this.correnteCCMax = correnteCCMax;
+            this.dial = dial;
+            this.correnteMedia = correnteMedia;
+        }
+
+
+        Boolean timerComecou = false;
+        private System.Threading.Timer timer;
+        private double tempoRestanteEmSegundos;
+        public void AnalisaDados()
+        {
+            MessageBox.Show("Entrei " + dispositivoId.ToString() + " " + correnteMedia.ToString());
+            while (true)
+            {
+
+                if (correnteMedia < correnteNominal && timerComecou)
+                {
+                    timer.Dispose();
+                    break;
+                }
+
+                if (correnteMedia >= correnteCCMax)
+                {
+                    Alarme();
+                    Thread.Sleep(1000);
+                }
+
+                else {
+                    // seguindo a curva muito-inversa e os valores adotados no vídeo de exemplo
+                    tempoAtuacao = dial * (13.5 / ((correnteCCMax / correnteMedia) - 1));
+
+                    if (!timerComecou)
+                    {
+                        tempoRestanteEmSegundos = 0;
+                        timer = new System.Threading.Timer(TimerCallback, null, 0, 10);
+
+                        timerComecou = true;
+                    }
+                }
+            }
+        }
+
+        private void TimerCallback(object state)
+        {
+            // atualiza o tempo restante
+            tempoRestanteEmSegundos += 0.01;
+
+            if (tempoRestanteEmSegundos >= tempoAtuacao)
+            {
+                timer.Dispose(); // para o timer quando o tempo limite for atingido
+                Alarme();
+            }
+        }
+
+        public void AtualizaCorrenteMedia(double novaCorrenteMedia)
+        {
+            // Atualiza a corrente média com o novo valor recebido
+            this.correnteMedia = novaCorrenteMedia;
+        }
+
+        public void Alarme()
+        {
+            MessageBox.Show("Pacote de alarme enviado! ID: " + this.dispositivoId);
         }
     }
 }
