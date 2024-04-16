@@ -33,13 +33,14 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.formsPlotPacotesRecebidos = new ScottPlot.FormsPlot();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.listViewDispositivos = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonParar = new System.Windows.Forms.Button();
             this.buttonIniciar = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBoxConexao = new System.Windows.Forms.ToolStripTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxCorrenteAtual = new System.Windows.Forms.TextBox();
             this.timerPlotPacotesRecebidos = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -84,11 +85,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.listViewDispositivos);
             this.groupBox2.Controls.Add(this.buttonParar);
             this.groupBox2.Controls.Add(this.buttonIniciar);
             this.groupBox2.Controls.Add(this.toolStrip1);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.textBoxCorrenteAtual);
             this.groupBox2.Location = new System.Drawing.Point(9, 17);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
@@ -98,9 +98,34 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Controle";
             // 
+            // listViewDispositivos
+            // 
+            this.listViewDispositivos.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.listViewDispositivos.HideSelection = false;
+            this.listViewDispositivos.Location = new System.Drawing.Point(5, 18);
+            this.listViewDispositivos.Name = "listViewDispositivos";
+            this.listViewDispositivos.Size = new System.Drawing.Size(199, 284);
+            this.listViewDispositivos.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.listViewDispositivos.TabIndex = 5;
+            this.listViewDispositivos.UseCompatibleStateImageBehavior = false;
+            this.listViewDispositivos.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "ID";
+            this.columnHeader1.Width = 40;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Corrente (A)";
+            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader2.Width = 80;
+            // 
             // buttonParar
             // 
-            this.buttonParar.Location = new System.Drawing.Point(114, 63);
+            this.buttonParar.Location = new System.Drawing.Point(123, 307);
             this.buttonParar.Margin = new System.Windows.Forms.Padding(2);
             this.buttonParar.Name = "buttonParar";
             this.buttonParar.Size = new System.Drawing.Size(70, 22);
@@ -111,7 +136,7 @@
             // 
             // buttonIniciar
             // 
-            this.buttonIniciar.Location = new System.Drawing.Point(24, 63);
+            this.buttonIniciar.Location = new System.Drawing.Point(16, 307);
             this.buttonIniciar.Margin = new System.Windows.Forms.Padding(2);
             this.buttonIniciar.Name = "buttonIniciar";
             this.buttonIniciar.Size = new System.Drawing.Size(70, 22);
@@ -149,25 +174,6 @@
             this.toolStripTextBoxConexao.ReadOnly = true;
             this.toolStripTextBoxConexao.Size = new System.Drawing.Size(100, 23);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 20);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Corrente Atual:";
-            // 
-            // textBoxCorrenteAtual
-            // 
-            this.textBoxCorrenteAtual.Location = new System.Drawing.Point(8, 35);
-            this.textBoxCorrenteAtual.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxCorrenteAtual.Name = "textBoxCorrenteAtual";
-            this.textBoxCorrenteAtual.ReadOnly = true;
-            this.textBoxCorrenteAtual.Size = new System.Drawing.Size(194, 20);
-            this.textBoxCorrenteAtual.TabIndex = 0;
-            // 
             // timerPlotPacotesRecebidos
             // 
             this.timerPlotPacotesRecebidos.Interval = 500;
@@ -199,13 +205,14 @@
         private ScottPlot.FormsPlot formsPlotPacotesRecebidos;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxCorrenteAtual;
         private System.Windows.Forms.Button buttonParar;
         private System.Windows.Forms.Button buttonIniciar;
         private System.Windows.Forms.Timer timerPlotPacotesRecebidos;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBoxConexao;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ListView listViewDispositivos;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }
 

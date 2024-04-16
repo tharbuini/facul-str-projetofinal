@@ -40,13 +40,11 @@ namespace wfa_STR
             if (listaUnidadesGeradorasDadosMedicao == null)
                 return;
 
-
             int indiceUnidGeradora = 0;
             if (listViewUnidGeradora.SelectedItems.Count > 0)
                 indiceUnidGeradora = Convert.ToInt16(listViewUnidGeradora.SelectedItems[0].Text);
             else
                 return;
-
 
             for (int i = 0; i < listaUnidadesGeradorasDadosMedicao.Length; i++)
             {

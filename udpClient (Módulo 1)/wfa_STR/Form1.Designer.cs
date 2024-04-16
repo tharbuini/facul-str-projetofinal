@@ -47,7 +47,6 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.timerPlotSinaisEnviados = new System.Windows.Forms.Timer(this.components);
@@ -251,8 +250,7 @@
             this.listViewUnidGeradora.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4});
+            this.columnHeader3});
             this.listViewUnidGeradora.HideSelection = false;
             this.listViewUnidGeradora.Location = new System.Drawing.Point(4, 17);
             this.listViewUnidGeradora.Margin = new System.Windows.Forms.Padding(2);
@@ -265,24 +263,20 @@
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Cód. und. geradora";
-            this.columnHeader1.Width = 80;
+            this.columnHeader1.Text = "ID Unidade";
+            this.columnHeader1.Width = 69;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Freq (ms)";
+            this.columnHeader2.Text = "Frequência (ms)";
             this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader2.Width = 100;
+            this.columnHeader2.Width = 89;
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "I original";
-            this.columnHeader3.Width = 80;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "I curto";
-            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader3.Text = "Corrente Inicial";
+            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader3.Width = 88;
             // 
             // groupBox4
             // 
@@ -358,7 +352,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox1;
         private ScottPlot.FormsPlot formsPlotPacotesEnviados;

@@ -44,7 +44,7 @@ namespace wfa_STR_ProjetoFinal
             Control.CheckForIllegalCrossThreadCalls = false; 
             InitializeComponent();
 
-            formsPlotPacotesRecebidos.Plot.Title("Taxa de Pacotes Recebidos", true, Color.Black, 12.0f);
+            formsPlotPacotesRecebidos.Plot.Title("Dados de Corrente Recebidos", true, Color.Black, 12.0f);
         }
 
         private void buttonIniciar_Click(object sender, EventArgs e)
@@ -81,7 +81,7 @@ namespace wfa_STR_ProjetoFinal
             dadosPlotarGrafico.Clear();
             buttonIniciar.Enabled = true;
             pararRecebimentoDados = true;
-            textBoxCorrenteAtual.Text = "";
+            listViewDispositivos.Clear();
 
             // Encerra a conexão UDP
             if (udpServer != null)
@@ -96,6 +96,7 @@ namespace wfa_STR_ProjetoFinal
             }
         }
 
+        List<int> listaIDDispositivos = new List<int>();  
         private void RecebimentoPacotesUDP()
         {
             while (true)
@@ -109,10 +110,9 @@ namespace wfa_STR_ProjetoFinal
 
                 int id = dadosRecebidosJSON.idDispositivo;
                 correnteMedia = (dadosRecebidosJSON.Ia + dadosRecebidosJSON.Ib + dadosRecebidosJSON.Ic) / 3;
-
-                textBoxCorrenteAtual.Text = correnteMedia.ToString() + " A" + " / Dispositivo: " + id.ToString();
                 contadorRecebimentoPacote++;
 
+                // Verifica se não é o pacote de encerramento de envios
                 if (id != -1) 
                 {
                     if (listaDispositivos.Count <= id || listaDispositivos[id] == null)
@@ -129,6 +129,26 @@ namespace wfa_STR_ProjetoFinal
                         listaDispositivos[id].AtualizaCorrenteMedia(correnteMedia);
                     }
                 }
+                
+                if (listaIDDispositivos.Contains(id))
+                {
+                    // Atualiza listview com novos valores de corrente
+                    foreach (ListViewItem item in listViewDispositivos.Items)
+                    {
+                        if (item.SubItems[0].Text == id.ToString()) // Procura pelo ID
+                        {
+                            item.SubItems[1].Text = correnteMedia.ToString(); // Atualiza a corrente
+                            return; // Sai do loop após encontrar o item
+                        }
+                    }
+                }
+                else
+                {
+                    listViewDispositivos.Items.Add(new ListViewItem(new String[] { id.ToString(), correnteMedia.ToString() }));
+                    listaIDDispositivos.Add(id);
+                }
+
+
             }
         }
 
