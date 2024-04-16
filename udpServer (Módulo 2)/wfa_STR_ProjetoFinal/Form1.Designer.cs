@@ -33,10 +33,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.formsPlotPacotesRecebidos = new ScottPlot.FormsPlot();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxTempoEspera = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxTimerControleCurto = new System.Windows.Forms.TextBox();
             this.buttonParar = new System.Windows.Forms.Button();
             this.buttonIniciar = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -45,7 +41,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxCorrenteAtual = new System.Windows.Forms.TextBox();
             this.timerPlotPacotesRecebidos = new System.Windows.Forms.Timer(this.components);
-            this.timerControleCurto = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -89,10 +84,6 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.textBoxTempoEspera);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.textBoxTimerControleCurto);
             this.groupBox2.Controls.Add(this.buttonParar);
             this.groupBox2.Controls.Add(this.buttonIniciar);
             this.groupBox2.Controls.Add(this.toolStrip1);
@@ -106,44 +97,6 @@
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Controle";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 102);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(133, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Tempo de Espera Máximo:";
-            // 
-            // textBoxTempoEspera
-            // 
-            this.textBoxTempoEspera.Location = new System.Drawing.Point(138, 99);
-            this.textBoxTempoEspera.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxTempoEspera.Name = "textBoxTempoEspera";
-            this.textBoxTempoEspera.ReadOnly = true;
-            this.textBoxTempoEspera.Size = new System.Drawing.Size(64, 20);
-            this.textBoxTempoEspera.TabIndex = 7;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 131);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Timer:";
-            // 
-            // textBoxTimerControleCurto
-            // 
-            this.textBoxTimerControleCurto.Location = new System.Drawing.Point(8, 146);
-            this.textBoxTimerControleCurto.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxTimerControleCurto.Name = "textBoxTimerControleCurto";
-            this.textBoxTimerControleCurto.ReadOnly = true;
-            this.textBoxTimerControleCurto.Size = new System.Drawing.Size(194, 20);
-            this.textBoxTimerControleCurto.TabIndex = 5;
             // 
             // buttonParar
             // 
@@ -220,11 +173,6 @@
             this.timerPlotPacotesRecebidos.Interval = 500;
             this.timerPlotPacotesRecebidos.Tick += new System.EventHandler(this.timerPlotPacotesRecebidos_Tick);
             // 
-            // timerControleCurto
-            // 
-            this.timerControleCurto.Interval = 1000;
-            this.timerControleCurto.Tick += new System.EventHandler(this.timerControleCurto_Tick);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -258,11 +206,6 @@
         private System.Windows.Forms.Timer timerPlotPacotesRecebidos;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBoxConexao;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxTimerControleCurto;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxTempoEspera;
-        private System.Windows.Forms.Timer timerControleCurto;
     }
 }
 

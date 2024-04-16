@@ -76,10 +76,10 @@
             // 
             this.propertyGridUnidGeradoras.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.propertyGridUnidGeradoras.Enabled = false;
-            this.propertyGridUnidGeradoras.Location = new System.Drawing.Point(2, 168);
+            this.propertyGridUnidGeradoras.Location = new System.Drawing.Point(2, 215);
             this.propertyGridUnidGeradoras.Margin = new System.Windows.Forms.Padding(2);
             this.propertyGridUnidGeradoras.Name = "propertyGridUnidGeradoras";
-            this.propertyGridUnidGeradoras.Size = new System.Drawing.Size(256, 202);
+            this.propertyGridUnidGeradoras.Size = new System.Drawing.Size(256, 182);
             this.propertyGridUnidGeradoras.TabIndex = 48;
             // 
             // buttonIniciarEnvio
@@ -95,7 +95,7 @@
             // 
             // buttonLimpar
             // 
-            this.buttonLimpar.Location = new System.Drawing.Point(146, 137);
+            this.buttonLimpar.Location = new System.Drawing.Point(146, 186);
             this.buttonLimpar.Margin = new System.Windows.Forms.Padding(2);
             this.buttonLimpar.Name = "buttonLimpar";
             this.buttonLimpar.Size = new System.Drawing.Size(106, 25);
@@ -106,7 +106,7 @@
             // 
             // buttonAdicionar
             // 
-            this.buttonAdicionar.Location = new System.Drawing.Point(17, 113);
+            this.buttonAdicionar.Location = new System.Drawing.Point(17, 91);
             this.buttonAdicionar.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAdicionar.Name = "buttonAdicionar";
             this.buttonAdicionar.Size = new System.Drawing.Size(235, 25);
@@ -241,7 +241,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(261, 147);
+            this.groupBox2.Size = new System.Drawing.Size(261, 121);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Adicionar nova unidade geradora";
@@ -257,7 +257,7 @@
             this.listViewUnidGeradora.Location = new System.Drawing.Point(4, 17);
             this.listViewUnidGeradora.Margin = new System.Windows.Forms.Padding(2);
             this.listViewUnidGeradora.Name = "listViewUnidGeradora";
-            this.listViewUnidGeradora.Size = new System.Drawing.Size(248, 116);
+            this.listViewUnidGeradora.Size = new System.Drawing.Size(248, 165);
             this.listViewUnidGeradora.TabIndex = 56;
             this.listViewUnidGeradora.UseCompatibleStateImageBehavior = false;
             this.listViewUnidGeradora.View = System.Windows.Forms.View.Details;
@@ -305,11 +305,11 @@
             this.groupBox1.Controls.Add(this.buttonLimpar);
             this.groupBox1.Controls.Add(this.propertyGridUnidGeradoras);
             this.groupBox1.Controls.Add(this.listViewUnidGeradora);
-            this.groupBox1.Location = new System.Drawing.Point(4, 182);
+            this.groupBox1.Location = new System.Drawing.Point(4, 155);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(260, 372);
+            this.groupBox1.Size = new System.Drawing.Size(260, 399);
             this.groupBox1.TabIndex = 46;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Gerencia unidades geradoras";

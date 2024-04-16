@@ -32,8 +32,9 @@ namespace wfa_STR
             InitializeComponent();
             Control.CheckForIllegalCrossThreadCalls = false; // possibilita que componentes sejam chamados por threads diferentes                                    
 
-            formsPlotPacotesEnviados.Plot.Title("Taxa pacotes recebidos de subestação", true, Color.Black, 12.0f);
+            formsPlotPacotesEnviados.Plot.Title("Dados de corrente referente à unidade geradora 1", true, Color.Black, 12.0f);
         }
+
         private void listViewUnidGeradora_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listaUnidadesGeradorasDadosMedicao == null)

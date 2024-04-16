@@ -82,8 +82,6 @@ namespace wfa_STR_ProjetoFinal
             buttonIniciar.Enabled = true;
             pararRecebimentoDados = true;
             textBoxCorrenteAtual.Text = "";
-            textBoxTempoEspera.Text = "";
-            textBoxTimerControleCurto.Text = "";
 
             // Encerra a conexão UDP
             if (udpServer != null)
@@ -112,16 +110,15 @@ namespace wfa_STR_ProjetoFinal
                 int id = dadosRecebidosJSON.idDispositivo;
                 correnteMedia = (dadosRecebidosJSON.Ia + dadosRecebidosJSON.Ib + dadosRecebidosJSON.Ic) / 3;
 
-                textBoxCorrenteAtual.Text = correnteMedia.ToString() + " A";
+                textBoxCorrenteAtual.Text = correnteMedia.ToString() + " A" + " / Dispositivo: " + id.ToString();
                 contadorRecebimentoPacote++;
 
                 if (id != -1) 
                 {
-
                     if (listaDispositivos.Count <= id || listaDispositivos[id] == null)
                     {
                         // Cria uma nova instância de UnidadeMonitoramentoDados se ainda não existir
-                        UnidadeMonitoramentoDados dispositivo = new UnidadeMonitoramentoDados(id, correnteNominal, dial, correnteCCMax, correnteMedia);
+                        UnidadeMonitoramentoDados dispositivo = new UnidadeMonitoramentoDados(id, correnteNominal, correnteCCMax, correnteMedia, dial);
                         listaDispositivos[id] = dispositivo;
                         Thread threadDispositivo = new Thread(() => dispositivo.AnalisaDados());
                         threadDispositivo.Start();
@@ -133,11 +130,6 @@ namespace wfa_STR_ProjetoFinal
                     }
                 }
             }
-        }
-
-        private void timerControleCurto_Tick(object sender, EventArgs e)
-        {
-
         }
 
         private void timerPlotPacotesRecebidos_Tick(object sender, EventArgs e)
@@ -194,38 +186,39 @@ namespace wfa_STR_ProjetoFinal
             this.dispositivoId = id;
             this.correnteNominal = correnteNominal;
             this.correnteCCMax = correnteCCMax;
-            this.dial = dial;
             this.correnteMedia = correnteMedia;
+            this.dial = dial;
         }
-
 
         Boolean timerComecou = false;
         private System.Threading.Timer timer;
         private double tempoRestanteEmSegundos;
         public void AnalisaDados()
         {
-            MessageBox.Show("Entrei " + dispositivoId.ToString() + " " + correnteMedia.ToString());
             while (true)
             {
 
                 if (correnteMedia < correnteNominal && timerComecou)
                 {
                     timer.Dispose();
+                    timerComecou = false;
                     break;
                 }
 
                 if (correnteMedia >= correnteCCMax)
                 {
                     Alarme();
-                    Thread.Sleep(1000);
+                    Thread.Sleep(10000);
                 }
 
-                else {
+                else if (correnteMedia > correnteNominal) {
                     // seguindo a curva muito-inversa e os valores adotados no vídeo de exemplo
                     tempoAtuacao = dial * (13.5 / ((correnteCCMax / correnteMedia) - 1));
 
                     if (!timerComecou)
                     {
+                        MessageBox.Show("Corrente: " + this.correnteMedia + " / Tempo de Atuação: " + this.tempoAtuacao);
+
                         tempoRestanteEmSegundos = 0;
                         timer = new System.Threading.Timer(TimerCallback, null, 0, 10);
 
@@ -255,7 +248,7 @@ namespace wfa_STR_ProjetoFinal
 
         public void Alarme()
         {
-            MessageBox.Show("Pacote de alarme enviado! ID: " + this.dispositivoId);
+            MessageBox.Show("Pacote de alarme enviado! ID: " + this.dispositivoId + " " + this.correnteMedia);
         }
     }
 }
