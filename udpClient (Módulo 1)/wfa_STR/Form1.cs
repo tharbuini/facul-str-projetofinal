@@ -25,7 +25,7 @@ namespace wfa_STR
         IPEndPoint ipConexaoRecebimentoUDP = null;
         IPEndPoint ipConexaoEnvioUDP = null;
         private List<int> dadosPlotarGrafico = new List<int>();
-        public Mutex nossoMutex = new Mutex();
+        public Mutex mutex = new Mutex();
 
         public Form1()
         {
@@ -83,7 +83,7 @@ namespace wfa_STR
                 codigo = Convert.ToInt16(listViewUnidGeradora.Items[i].SubItems[0].Text);
                 freqEnvio = Convert.ToInt16(listViewUnidGeradora.Items[i].SubItems[1].Text);
                 correnteOriginal = Convert.ToInt16(listViewUnidGeradora.Items[i].SubItems[2].Text);
-                listaUnidadesGeradorasDadosMedicao[i] = new UnidadeGeradoraDadosMedicao(udpClient, nossoMutex, correnteOriginal, codigo, freqEnvio);
+                listaUnidadesGeradorasDadosMedicao[i] = new UnidadeGeradoraDadosMedicao(udpClient, mutex, correnteOriginal, codigo, freqEnvio);
             }
 
             // parte 3: gera threads
@@ -116,9 +116,10 @@ namespace wfa_STR
             // enviar último pacote zerado
             string formatoPacote = "{'Ia': " + '0' + " ,'Ib': " + '0' + " ,'Ic': " + '0' + " ,'idDispositivo': " + "-1" + "}";
             byte[] bytes = Encoding.ASCII.GetBytes(formatoPacote);
-            nossoMutex.WaitOne(); // bloqueia esta região para uma simples thread acessar
+            mutex.WaitOne(); // bloqueia esta região para uma simples thread acessar
             if (udpClient != null)
                 udpClient.Send(bytes, bytes.Length);
+            mutex.ReleaseMutex();
 
             // parte 2: fecha a conexão UDP
             if (udpClient != null) 
@@ -210,17 +211,17 @@ namespace wfa_STR
             [Browsable(false)]
             public bool pararEnvio { get; set; }
 
-            public Mutex nossoMutex;
-            public UdpClient usocketConexaoUDP;
+            public Mutex mutex;
+            public UdpClient udpClient;
             public IPEndPoint ipConexaoEnvioUDP;
 
-            public UnidadeGeradoraDadosMedicao(UdpClient p_usocketConexaoUDP, Mutex p_nossoMutex, int p_valorCorrente, int p_codDestaUnidade, int p_freqEnvioPacotesMS)
+            public UnidadeGeradoraDadosMedicao(UdpClient p_udpClient, Mutex p_mutex, int p_valorCorrente, int p_codDestaUnidade, int p_freqEnvioPacotesMS)
             {
-                nossoMutex = p_nossoMutex;
+                mutex = p_mutex;
                 valorCorrente = p_valorCorrente;
                 codDestaUnidade = p_codDestaUnidade;
                 freqEnvioPacotesMS = p_freqEnvioPacotesMS;
-                usocketConexaoUDP = p_usocketConexaoUDP;
+                udpClient = p_udpClient;
                 contadorPacotesEnviados = 0;
                 pararEnvio = false;
             }
@@ -231,7 +232,6 @@ namespace wfa_STR
                 string corrente;
                 byte[] bytes;
                 int correntePrev = 0;
-
 
                 // caso a corrente não tenha alteração em relação à última, não envia pacotes
                 while (true)
@@ -255,12 +255,10 @@ namespace wfa_STR
                                         " ,'idDispositivo': " + codDestaUnidade.ToString() + "}";
 
                         bytes = Encoding.ASCII.GetBytes(formatoPacote);
-                        nossoMutex.WaitOne(); // bloqueia esta região para uma simples thread acessar
-                        if (usocketConexaoUDP != null)
-                            usocketConexaoUDP.Send(bytes, bytes.Length);
-                        nossoMutex.ReleaseMutex(); // desbloqueia esta região 
-
-                        
+                        mutex.WaitOne(); // bloqueia esta região para uma simples thread acessar
+                        if (udpClient != null)
+                            udpClient.Send(bytes, bytes.Length);
+                        mutex.ReleaseMutex(); // desbloqueia esta região
                     }
                     else
                     {

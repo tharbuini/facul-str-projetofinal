@@ -21,23 +21,17 @@ namespace wfa_STR_ProjetoFinal
     public partial class Form1 : Form
     {
         Thread threadRecebimentosPacotes = null;
-        Thread threadDispositivo = null;
-        Thread[] listaThreadsDispositivos;
-
         private List<UnidadeMonitoramentoDados> listaDispositivos = new List<UnidadeMonitoramentoDados>();
+        private List<int> dadosPlotarGrafico = new List<int>();
+        public Mutex mutex = new Mutex();
         JSON_Dados_Corrente dadosRecebidosJSON;
         UdpClient udpServer = null;
         IPEndPoint remoteEP = null;
         string mensagemRecebida;
         byte[] bytesRecebidos;
         int contadorRecebimentoPacote = 0;
-        private List<int> dadosPlotarGrafico = new List<int>();
         Boolean pararRecebimentoDados = false;
-        
         double correnteMedia = 0;
-        double correnteNominal = 600;
-        double dial = 0.25;
-        double correnteCCMax = 10000;
 
         public Form1()
         {
@@ -113,12 +107,12 @@ namespace wfa_STR_ProjetoFinal
                 contadorRecebimentoPacote++;
 
                 // Verifica se não é o pacote de encerramento de envios
-                if (id != -1) 
+                if (id != -1)
                 {
                     if (listaDispositivos.Count <= id || listaDispositivos[id] == null)
                     {
                         // Cria uma nova instância de UnidadeMonitoramentoDados se ainda não existir
-                        UnidadeMonitoramentoDados dispositivo = new UnidadeMonitoramentoDados(id, correnteNominal, correnteCCMax, correnteMedia, dial);
+                        UnidadeMonitoramentoDados dispositivo = new UnidadeMonitoramentoDados(id, correnteMedia, udpServer, mutex);
                         listaDispositivos[id] = dispositivo;
                         Thread threadDispositivo = new Thread(() => dispositivo.AnalisaDados());
                         threadDispositivo.Start();
@@ -128,27 +122,33 @@ namespace wfa_STR_ProjetoFinal
                         // Atualiza os dados da instância existente de UnidadeMonitoramentoDados
                         listaDispositivos[id].AtualizaCorrenteMedia(correnteMedia);
                     }
-                }
-                
-                if (listaIDDispositivos.Contains(id))
-                {
-                    // Atualiza listview com novos valores de corrente
-                    foreach (ListViewItem item in listViewDispositivos.Items)
+
+                    if (listaIDDispositivos.Contains(id))
                     {
-                        if (item.SubItems[0].Text == id.ToString()) // Procura pelo ID
+                        // Atualiza listview com novos valores de corrente
+                        foreach (ListViewItem item in listViewDispositivos.Items)
                         {
-                            item.SubItems[1].Text = correnteMedia.ToString(); // Atualiza a corrente
-                            return; // Sai do loop após encontrar o item
+                            if (item.SubItems[0].Text == id.ToString()) // Procura pelo ID
+                            {
+                                item.SubItems[1].Text = correnteMedia.ToString(); // Atualiza a corrente
+                            }
                         }
+                    }
+                    else
+                    {
+                        listViewDispositivos.Items.Add(new ListViewItem(new String[] { id.ToString(), correnteMedia.ToString() }));
+                        listaIDDispositivos.Add(id);
                     }
                 }
                 else
                 {
-                    listViewDispositivos.Items.Add(new ListViewItem(new String[] { id.ToString(), correnteMedia.ToString() }));
-                    listaIDDispositivos.Add(id);
+                    // Atualiza todas as correntes para 0
+                    for (int i = 1; i < listaDispositivos.Count; i++)
+                    {
+                        if (listaDispositivos[i] != null)  
+                            listaDispositivos[i].AtualizaCorrenteMedia(0);
+                    }
                 }
-
-
             }
         }
 
@@ -178,8 +178,6 @@ namespace wfa_STR_ProjetoFinal
                 formsPlotPacotesRecebidos.Refresh();
             }
         }
-
-
     } // -------- FIM CLASSE ---------
 
 
@@ -195,67 +193,92 @@ namespace wfa_STR_ProjetoFinal
     public class UnidadeMonitoramentoDados
     {
         private int dispositivoId;
-        private double correnteNominal;
-        private double correnteCCMax;
-        private double dial;
+        private double correnteNominal = 600;
+        private double dial = 0.25;
+        private double correnteCCMax = 10000;
         private double tempoAtuacao;
         private double correnteMedia;
-
-        public UnidadeMonitoramentoDados(int id, double correnteNominal, double correnteCCMax, double correnteMedia, double dial)
-        {
-            this.dispositivoId = id;
-            this.correnteNominal = correnteNominal;
-            this.correnteCCMax = correnteCCMax;
-            this.correnteMedia = correnteMedia;
-            this.dial = dial;
-        }
-
-        Boolean timerComecou = false;
         private System.Threading.Timer timer;
         private double tempoRestanteEmSegundos;
+        private Mutex mutex;
+        private UdpClient udpServer;
+        Thread threadAlarme = null;
+        Thread threadTempoAtuacao = null;
+        double correnteSendoAnalisada = 0;
+        Boolean timerComecou = false;
+        Boolean emCurto = false;
+
+        public UnidadeMonitoramentoDados(int p_id, double p_correnteMedia, UdpClient p_udpServer, Mutex p_mutex)
+        {
+            this.dispositivoId = p_id;
+            this.correnteMedia = p_correnteMedia;
+            this.udpServer = p_udpServer;
+            this.mutex = p_mutex;
+        }
+
         public void AnalisaDados()
         {
             while (true)
             {
-
-                if (correnteMedia < correnteNominal && timerComecou)
+                if (correnteMedia < correnteNominal)
                 {
-                    timer.Dispose();
-                    timerComecou = false;
-                    break;
+                    emCurto = false;
+                    if (timerComecou)
+                    {
+                        timer.Dispose();
+                        threadAlarme.Abort();
+                        timerComecou = false;
+                    }
                 }
 
                 if (correnteMedia >= correnteCCMax)
                 {
+                    emCurto = true;
                     Alarme();
-                    Thread.Sleep(10000);
                 }
 
                 else if (correnteMedia > correnteNominal) {
                     // seguindo a curva muito-inversa e os valores adotados no vídeo de exemplo
                     tempoAtuacao = dial * (13.5 / ((correnteCCMax / correnteMedia) - 1));
+                    emCurto = true;
 
                     if (!timerComecou)
                     {
-                        MessageBox.Show("Corrente: " + this.correnteMedia + " / Tempo de Atuação: " + this.tempoAtuacao);
+                        threadTempoAtuacao = new Thread(new ThreadStart(MostraTempoAtuacao));
+                        threadTempoAtuacao.Start();
 
                         tempoRestanteEmSegundos = 0;
                         timer = new System.Threading.Timer(TimerCallback, null, 0, 10);
 
                         timerComecou = true;
+                        correnteSendoAnalisada = correnteMedia;
+                    }
+                    else if (correnteMedia > correnteSendoAnalisada) 
+                    {
+                        // Reinicializa o timer mantendo a contagem do "tempoRestanteEmSegundos" anterior
+                        timer.Dispose();
+                        timer = new System.Threading.Timer(TimerCallback, null, 0, 10);
+                        correnteSendoAnalisada = correnteMedia;
                     }
                 }
             }
         }
 
+        private void MostraTempoAtuacao()
+        {
+            MessageBox.Show("Corrente: " + this.correnteMedia + " A / Tempo de Atuação: " + this.tempoAtuacao);
+            threadTempoAtuacao.Abort();
+        }
+
         private void TimerCallback(object state)
         {
-            // atualiza o tempo restante
+            // Atualiza o tempo restante
             tempoRestanteEmSegundos += 0.01;
 
             if (tempoRestanteEmSegundos >= tempoAtuacao)
             {
-                timer.Dispose(); // para o timer quando o tempo limite for atingido
+                // Para o timer e despacha pacote 99/1 quando o tempo limite for atingido
+                timer.Dispose(); 
                 Alarme();
             }
         }
@@ -267,6 +290,34 @@ namespace wfa_STR_ProjetoFinal
         }
 
         public void Alarme()
+        {
+            while (emCurto)
+            {
+                // Pacote a ser enviado para o módulo atuador
+                //string formatoPacote = "{'ID': " + this.dispositivoId +
+                //                       " ,'Corrente': " + this.correnteMedia + "}";
+
+                //byte[] bytes = Encoding.ASCII.GetBytes(formatoPacote);
+                //mutex.WaitOne();
+                //if (udpServer != null)
+                //{
+                //    udpServer.Send(bytes, bytes.Length);
+                //}
+                //mutex.ReleaseMutex();
+
+                threadAlarme = new Thread(new ThreadStart(EnviaPacotesAlarme));
+                threadAlarme.Start();
+
+                // Verifica a urgência de enviar pacotes
+                // IMPLEMENTAR O MECANISMO QoS CONTANDO PACOTES QUE FORAM ENVIADOS
+                if (correnteMedia < correnteCCMax)
+                    Thread.Sleep(1000);
+                else
+                    Thread.Sleep(500);
+            }
+        }
+
+        private void EnviaPacotesAlarme()
         {
             MessageBox.Show("Pacote de alarme enviado! ID: " + this.dispositivoId + " " + this.correnteMedia);
         }
