@@ -136,7 +136,7 @@ namespace wfa_STR_ProjetoFinal
                     }
                     else
                     {
-                        listViewDispositivos.Items.Add(new ListViewItem(new String[] { id.ToString(), correnteMedia.ToString() }));
+                        listViewDispositivos.Items.Add(new ListViewItem(new String[] { id.ToString(), correnteMedia.ToString(), "-" }));
                         listaIDDispositivos.Add(id);
                     }
                 }
@@ -148,6 +148,17 @@ namespace wfa_STR_ProjetoFinal
                         if (listaDispositivos[i] != null)  
                             listaDispositivos[i].AtualizaCorrenteMedia(0);
                     }
+                }
+            }
+        }
+
+        public void ModificarListView(int id, double tempoAtuacao)
+        {
+            foreach (ListViewItem item in listViewDispositivos.Items)
+            {
+                if (item.SubItems[0].Text == id.ToString()) // Procura pelo ID
+                {
+                    item.SubItems[2].Text = tempoAtuacao.ToString(); // Atualiza o tempo de atuação
                 }
             }
         }
@@ -171,6 +182,7 @@ namespace wfa_STR_ProjetoFinal
             {
                 ys[i] = dadosPlotarGrafico[i];
             }
+
             formsPlotPacotesRecebidos.Plot.Clear();
             if (dadosPlotarGrafico.Count > 1)
             {
@@ -192,7 +204,7 @@ namespace wfa_STR_ProjetoFinal
 
     public class UnidadeMonitoramentoDados
     {
-        private int dispositivoId;
+        private int idDispositivo;
         private double correnteNominal = 600;
         private double dial = 0.25;
         private double correnteCCMax = 10000;
@@ -210,7 +222,7 @@ namespace wfa_STR_ProjetoFinal
 
         public UnidadeMonitoramentoDados(int p_id, double p_correnteMedia, UdpClient p_udpServer, Mutex p_mutex)
         {
-            this.dispositivoId = p_id;
+            this.idDispositivo = p_id;
             this.correnteMedia = p_correnteMedia;
             this.udpServer = p_udpServer;
             this.mutex = p_mutex;
@@ -218,6 +230,8 @@ namespace wfa_STR_ProjetoFinal
 
         public void AnalisaDados()
         {
+            Form1 meuForm = new Form1();
+
             while (true)
             {
                 if (correnteMedia < correnteNominal)
@@ -238,9 +252,11 @@ namespace wfa_STR_ProjetoFinal
                 }
 
                 else if (correnteMedia > correnteNominal) {
-                    // seguindo a curva muito-inversa e os valores adotados no vídeo de exemplo
-                    tempoAtuacao = dial * (13.5 / ((correnteCCMax / correnteMedia) - 1));
+                    // Seguindo a curva muito-inversa e os valores adotados no vídeo de exemplo
+                    tempoAtuacao = dial * (13.5 / ((correnteMedia / correnteNominal) - 1));
                     emCurto = true;
+
+                    meuForm.ModificarListView(idDispositivo, tempoAtuacao);
 
                     if (!timerComecou)
                     {
@@ -311,7 +327,7 @@ namespace wfa_STR_ProjetoFinal
                 // Verifica a urgência de enviar pacotes
                 // IMPLEMENTAR O MECANISMO QoS CONTANDO PACOTES QUE FORAM ENVIADOS
                 if (correnteMedia < correnteCCMax)
-                    Thread.Sleep(1000);
+                    Thread.Sleep(Convert.ToInt32(tempoAtuacao * 1000));
                 else
                     Thread.Sleep(500);
             }
@@ -319,7 +335,8 @@ namespace wfa_STR_ProjetoFinal
 
         private void EnviaPacotesAlarme()
         {
-            MessageBox.Show("Pacote de alarme enviado! ID: " + this.dispositivoId + " " + this.correnteMedia);
+            MessageBox.Show("Pacote de alarme enviado! ID: " + this.idDispositivo + " " + this.correnteMedia);
+            //contadorPacotes++;
         }
     }
 }
