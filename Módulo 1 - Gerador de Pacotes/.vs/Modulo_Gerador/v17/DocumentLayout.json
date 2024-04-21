@@ -1,12 +1,70 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\udpClient (M\u00F3dulo 1)\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\M\u00F3dulo 1 - Gerador de Pacotes\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EDA54D8C-C5C6-483D-BE66-C632D86AF43E}|wfa_STR\\STR_Gerador.csproj|c:\\users\\tharb\\documents\\github\\facul-str-projetofinal\\m\u00F3dulo 1 - gerador de pacotes\\wfa_str\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDA54D8C-C5C6-483D-BE66-C632D86AF43E}|wfa_STR\\STR_Gerador.csproj|solutionrelative:wfa_str\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDA54D8C-C5C6-483D-BE66-C632D86AF43E}|wfa_STR\\STR_Gerador.csproj|c:\\users\\tharb\\documents\\github\\facul-str-projetofinal\\m\u00F3dulo 1 - gerador de pacotes\\wfa_str\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{EDA54D8C-C5C6-483D-BE66-C632D86AF43E}|wfa_STR\\STR_Gerador.csproj|solutionrelative:wfa_str\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDA54D8C-C5C6-483D-BE66-C632D86AF43E}|wfa_STR\\STR_Gerador.csproj|c:\\users\\tharb\\documents\\github\\facul-str-projetofinal\\m\u00F3dulo 1 - gerador de pacotes\\wfa_str\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDA54D8C-C5C6-483D-BE66-C632D86AF43E}|wfa_STR\\STR_Gerador.csproj|solutionrelative:wfa_str\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\M\u00F3dulo 1 - Gerador de Pacotes\\wfa_STR\\Form1.cs",
+              "RelativeDocumentMoniker": "wfa_STR\\Form1.cs",
+              "ToolTip": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\M\u00F3dulo 1 - Gerador de Pacotes\\wfa_STR\\Form1.cs",
+              "RelativeToolTip": "wfa_STR\\Form1.cs",
+              "ViewState": "AQIAAJAAAAAAAAAAAAAqwJkAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-21T17:41:29.52Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\M\u00F3dulo 1 - Gerador de Pacotes\\wfa_STR\\Program.cs",
+              "RelativeDocumentMoniker": "wfa_STR\\Program.cs",
+              "ToolTip": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\M\u00F3dulo 1 - Gerador de Pacotes\\wfa_STR\\Program.cs",
+              "RelativeToolTip": "wfa_STR\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-21T17:41:22.562Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\M\u00F3dulo 1 - Gerador de Pacotes\\wfa_STR\\Form1.cs",
+              "RelativeDocumentMoniker": "wfa_STR\\Form1.cs",
+              "ToolTip": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\M\u00F3dulo 1 - Gerador de Pacotes\\wfa_STR\\Form1.cs [Design]",
+              "RelativeToolTip": "wfa_STR\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-21T17:41:21.65Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

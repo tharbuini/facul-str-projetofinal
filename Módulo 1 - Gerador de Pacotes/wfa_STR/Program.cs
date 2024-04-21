@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace wfa_STR
+namespace STR_Gerador
 {
     internal static class Program
     {

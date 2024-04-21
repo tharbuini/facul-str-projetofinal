@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace wfa_STR_ProjetoFinal
+namespace STR_Identificador_Curto
 {
     internal static class Program
     {

@@ -15,22 +15,22 @@ using Newtonsoft.Json;
 using ScottPlot;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Diagnostics;
+using ScottPlot.Drawing.Colormaps;
 
 namespace STR_Identificador_Curto
 {
     public partial class Form1 : Form
     {
-        Thread threadRecebimentosPacotes = null;
         private List<UnidadeMonitoramentoDados> listaDispositivos = new List<UnidadeMonitoramentoDados>();
         private List<int> dadosPlotarGrafico = new List<int>();
         public Mutex mutex = new Mutex();
+        Thread threadRecebimentosPacotes = null;
         JSON_Dados_Corrente dadosRecebidosJSON;
         UdpClient udpServer = null;
         IPEndPoint remoteEP = null;
         string mensagemRecebida;
         byte[] bytesRecebidos;
-        int contadorRecebimentoPacote = 0;
-        Boolean pararRecebimentoDados = false;
+        bool pararRecebimentoDados = false;
         double correnteMedia = 0;
 
         public Form1()
@@ -46,7 +46,6 @@ namespace STR_Identificador_Curto
             buttonIniciar.Enabled = false;
             buttonParar.Enabled = true;
             timerPlotPacotesRecebidos.Start();
-            contadorRecebimentoPacote = 0;
             dadosPlotarGrafico.Clear();
             pararRecebimentoDados = false;
 
@@ -71,7 +70,6 @@ namespace STR_Identificador_Curto
         {
             buttonParar.Enabled = false;
             timerPlotPacotesRecebidos.Stop();
-            contadorRecebimentoPacote = 0;
             dadosPlotarGrafico.Clear();
             buttonIniciar.Enabled = true;
             pararRecebimentoDados = true;
@@ -104,7 +102,6 @@ namespace STR_Identificador_Curto
 
                 int id = dadosRecebidosJSON.idDispositivo;
                 correnteMedia = (dadosRecebidosJSON.Ia + dadosRecebidosJSON.Ib + dadosRecebidosJSON.Ic) / 3;
-                contadorRecebimentoPacote++;
 
                 // Verifica se não é o pacote de encerramento de envios
                 if (id != -1)
@@ -152,17 +149,6 @@ namespace STR_Identificador_Curto
             }
         }
 
-        public void ModificarListView(int id, double tempoAtuacao)
-        {
-            foreach (ListViewItem item in listViewDispositivos.Items)
-            {
-                if (item.SubItems[0].Text == id.ToString()) // Procura pelo ID
-                {
-                    item.SubItems[2].Text = tempoAtuacao.ToString(); // Atualiza o tempo de atuação
-                }
-            }
-        }
-
         private void timerPlotPacotesRecebidos_Tick(object sender, EventArgs e)
         {
             if (dadosPlotarGrafico.Count > 300) // se tiver muitas amostras, zera
@@ -173,7 +159,6 @@ namespace STR_Identificador_Curto
             {
                 dadosPlotarGrafico.Add(Convert.ToInt32(correnteMedia));
             }
-            contadorRecebimentoPacote = 0; // zera contagem
 
             // atualiza a visualização do gráfico
             double[] ys = new double[dadosPlotarGrafico.Count];
@@ -217,8 +202,8 @@ namespace STR_Identificador_Curto
         Thread threadAlarme = null;
         Thread threadTempoAtuacao = null;
         double correnteSendoAnalisada = 0;
-        Boolean timerComecou = false;
-        Boolean emCurto = false;
+        bool timerComecou = false;
+        bool emCurto = false;
         int contadorPacotes = 0;
 
         public UnidadeMonitoramentoDados(int p_id, double p_correnteMedia, Mutex p_mutex)
@@ -234,38 +219,31 @@ namespace STR_Identificador_Curto
 
         public void AnalisaDados()
         {
-            Form1 meuForm = new Form1();
-
             while (true)
             {
                 if (correnteMedia < correnteNominal)
                 {
                     emCurto = false;
+                    tempoRestanteEmSegundos = 0;
                     if (timerComecou)
                     {
                         timer.Dispose();
-                        threadAlarme.Abort();
                         timerComecou = false;
+                        threadAlarme.Abort();
+                        EnviaPacote(idDispositivo, emCurto, correnteSendoAnalisada, DateTime.Now.ToString("h:mm:ss.fff tt"));
                     }
                 }
-
-                if (correnteMedia >= correnteCCMax)
+                else 
                 {
-                    emCurto = true;
-                    Alarme();
-                }
-
-                else if (correnteMedia > correnteNominal) {
                     // Seguindo a curva muito-inversa e os valores adotados no vídeo de exemplo
                     tempoAtuacao = dial * (13.5 / ((correnteMedia / correnteNominal) - 1));
                     emCurto = true;
 
-                    meuForm.ModificarListView(idDispositivo, tempoAtuacao);
-
                     if (!timerComecou)
                     {
-                        threadTempoAtuacao = new Thread(new ThreadStart(MostraTempoAtuacao));
-                        threadTempoAtuacao.Start();
+                        // Mostra o tempo de atuação em um messagebox (para informação)
+                        //threadTempoAtuacao = new Thread(new ThreadStart(MostraTempoAtuacao));
+                        //threadTempoAtuacao.Start();
 
                         tempoRestanteEmSegundos = 0;
                         timer = new System.Threading.Timer(TimerCallback, null, 0, 10);
@@ -273,11 +251,15 @@ namespace STR_Identificador_Curto
                         timerComecou = true;
                         correnteSendoAnalisada = correnteMedia;
                     }
-                    else if (correnteMedia > correnteSendoAnalisada) 
+                    else if (correnteMedia != correnteSendoAnalisada)
                     {
                         // Reinicializa o timer mantendo a contagem do "tempoRestanteEmSegundos" anterior
                         timer.Dispose();
+                        if (threadAlarme != null)
+                            threadAlarme.Abort();
+
                         timer = new System.Threading.Timer(TimerCallback, null, 0, 10);
+                        timerComecou = true;
                         correnteSendoAnalisada = correnteMedia;
                     }
                 }
@@ -289,17 +271,19 @@ namespace STR_Identificador_Curto
             MessageBox.Show("Corrente: " + this.correnteMedia + " A / Tempo de Atuação: " + this.tempoAtuacao);
             threadTempoAtuacao.Abort();
         }
-
+        
         private void TimerCallback(object state)
         {
             // Atualiza o tempo restante
             tempoRestanteEmSegundos += 0.01;
+            tempoAtuacao = dial * (13.5 / ((correnteMedia / correnteNominal) - 1));
 
             if (tempoRestanteEmSegundos >= tempoAtuacao)
             {
                 // Para o timer e despacha pacote 99/1 quando o tempo limite for atingido
-                timer.Dispose(); 
-                Alarme();
+                timer.Dispose();
+                threadAlarme = new Thread(new ThreadStart(Alarme));
+                threadAlarme.Start();
             }
         }
 
@@ -313,52 +297,54 @@ namespace STR_Identificador_Curto
         {
             while (emCurto)
             {
-                // Pacote a ser enviado para o módulo atuador
-                string formatoPacote = "{'ID': " + idDispositivo +
-                                   " ,'Curto': " + emCurto +
-                                   " ,'Momento': " + DateTime.Now.ToString("h:mm:ss tt") + "}";
+                // Suspende a Thread por um segundo para evitar sobrecarregamento da rede
+                if (contadorPacotes > 1000)
+                    Thread.Sleep(1000);
 
-                // Converta a mensagem em um array de bytes
-                byte[] bytes = Encoding.ASCII.GetBytes(formatoPacote);
-
-                // Use o endereço de broadcast
-                IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, 11001);
-
-                // Aguarde o mutex
-                mutex.WaitOne();
-
-                try
-                {
-                    // Envie a mensagem em broadcast
-                    udpClient.Send(bytes, bytes.Length, endPoint);
-                }
-                finally
-                {
-                    // Libere o mutex
-                    mutex.ReleaseMutex();
-                }
-
-                // IMPLEMENTAR O MECANISMO QoS CONTANDO PACOTES QUE FORAM ENVIADOS
+                EnviaPacote(idDispositivo, emCurto, correnteSendoAnalisada, DateTime.Now.ToString("h:mm:ss.fff tt"));
                 contadorPacotes++;
-
-                //threadAlarme = new Thread(new ThreadStart(EnviaPacotesAlarme));
-                //threadAlarme.Start();
 
                 // Verifica a urgência de enviar pacotes
                 if (correnteMedia < correnteCCMax)
                 {
-                    Thread.Sleep(Convert.ToInt32(tempoAtuacao * 1000));
+                    // Se estourar o limite, para o envio (tempo de espera muito longo)
+                    if (tempoAtuacao * 1000 > Int32.MaxValue)
+                    {
+                        break;
+                    }
+                    else
+                        Thread.Sleep(Convert.ToInt32(tempoAtuacao * 1000));
                 }
                 else
-                    Thread.Sleep(500);
+                {
+                    // Caso a corrente seja maior que o limite superior, envia com mais rapidez
+                    Thread.Sleep(100);
+                }
             }
 
             contadorPacotes = 0;
         }
+        
+        private void EnviaPacote(int idDispositivo, bool emCurto, double corrente, string momento)
+        {
+            // Pacote a ser enviado para o módulo atuador
+            string formatoPacote = "{'ID': " + idDispositivo +
+                                   ", 'Curto': " + emCurto +
+                                   ", 'Corrente': " + corrente +
+                                   ", 'Momento': " + momento + "}";
 
-        //private void EnviaPacotesAlarme()
-        //{
-        //    MessageBox.Show("Pacote de alarme enviado! ID: " + this.idDispositivo + " " + this.correnteMedia);
-        //}
+            byte[] bytes = Encoding.ASCII.GetBytes(formatoPacote);
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, 11001);
+
+            mutex.WaitOne();
+            try
+            {
+                udpClient.Send(bytes, bytes.Length, endPoint);
+            }
+            finally
+            {
+                mutex.ReleaseMutex();
+            }
+        }
     }
 }

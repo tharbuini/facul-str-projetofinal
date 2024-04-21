@@ -42,7 +42,6 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBoxConexao = new System.Windows.Forms.ToolStripTextBox();
             this.timerPlotPacotesRecebidos = new System.Windows.Forms.Timer(this.components);
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -103,8 +102,7 @@
             // 
             this.listViewDispositivos.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
+            this.columnHeader2});
             this.listViewDispositivos.HideSelection = false;
             this.listViewDispositivos.Location = new System.Drawing.Point(5, 18);
             this.listViewDispositivos.Name = "listViewDispositivos";
@@ -181,12 +179,6 @@
             this.timerPlotPacotesRecebidos.Interval = 500;
             this.timerPlotPacotesRecebidos.Tick += new System.EventHandler(this.timerPlotPacotesRecebidos_Tick);
             // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Tempo de Atuação (s)";
-            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader3.Width = 117;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,7 +213,6 @@
         private System.Windows.Forms.ListView listViewDispositivos;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
     }
 }
 

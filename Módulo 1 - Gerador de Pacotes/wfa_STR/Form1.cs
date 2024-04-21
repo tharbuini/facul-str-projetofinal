@@ -148,27 +148,30 @@ namespace STR_Gerador
 
         private void timerPlotSinaisEnviados_Tick(object sender, EventArgs e)
         {
-            if (dadosPlotarGrafico.Count > 300) // se tiver muitas amostras, zera
+            if (listaUnidadesGeradorasDadosMedicao.Length > 0)
             {
-                dadosPlotarGrafico.Clear();
-            }
-            else
-            {
-                dadosPlotarGrafico.Add(Convert.ToInt32(listaUnidadesGeradorasDadosMedicao[0].valorCorrente));
-            }
+                if (dadosPlotarGrafico.Count > 300) // se tiver muitas amostras, zera
+                {
+                    dadosPlotarGrafico.Clear();
+                }
+                else
+                {
+                    dadosPlotarGrafico.Add(Convert.ToInt32(listaUnidadesGeradorasDadosMedicao[0].valorCorrente));
+                }
 
-            // atualiza visualização do gráfico
-            double[] ys = new double[dadosPlotarGrafico.Count];
-            double[] xs = DataGen.Consecutive(dadosPlotarGrafico.Count);
-            for (int i = 0; i < dadosPlotarGrafico.Count; i++)
-            {
-                ys[i] = dadosPlotarGrafico[i];
-            }
-            formsPlotPacotesEnviados.Plot.Clear();
-            if (dadosPlotarGrafico.Count > 1)
-            {
-                formsPlotPacotesEnviados.Plot.AddScatterLines(xs, ys, Color.Blue, 2);
-                formsPlotPacotesEnviados.Refresh();
+                // atualiza visualização do gráfico
+                double[] ys = new double[dadosPlotarGrafico.Count];
+                double[] xs = DataGen.Consecutive(dadosPlotarGrafico.Count);
+                for (int i = 0; i < dadosPlotarGrafico.Count; i++)
+                {
+                    ys[i] = dadosPlotarGrafico[i];
+                }
+                formsPlotPacotesEnviados.Plot.Clear();
+                if (dadosPlotarGrafico.Count > 1)
+                {
+                    formsPlotPacotesEnviados.Plot.AddScatterLines(xs, ys, Color.Blue, 2);
+                    formsPlotPacotesEnviados.Refresh();
+                }
             }
         }
     }
