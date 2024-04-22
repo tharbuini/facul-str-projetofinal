@@ -142,8 +142,15 @@ namespace STR_Gerador
 
         private void buttonAdicionar_Click(object sender, EventArgs e)
         {
-            listViewUnidGeradora.Items.Add(new ListViewItem(new String[] { numericUpDownCodUnidGen.Value.ToString(), numericUpDownFreqEnvio.Value.ToString(), numericUpDownValorCorrente.Value.ToString() }));
-            numericUpDownCodUnidGen.Value = numericUpDownCodUnidGen.Value + 1;
+            if (numericUpDownCodUnidGen.Value > 5)
+            {
+                MessageBox.Show("Limite de dispositivos atingido!");
+            }
+            else 
+            { 
+                listViewUnidGeradora.Items.Add(new ListViewItem(new String[] { numericUpDownCodUnidGen.Value.ToString(), numericUpDownFreqEnvio.Value.ToString(), numericUpDownValorCorrente.Value.ToString() }));
+                numericUpDownCodUnidGen.Value = numericUpDownCodUnidGen.Value + 1;
+            }
         }
 
         private void timerPlotSinaisEnviados_Tick(object sender, EventArgs e)
