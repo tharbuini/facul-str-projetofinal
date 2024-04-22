@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tharb\\Desktop\\Módulo Extra - Receptor de Pacotes para Teste\\STR_Receptor_Pacotes\\STR_Receptor_Pacotes.csproj",
+      "projectUniqueName": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\Módulo Extra - Receptor de Pacotes para Teste\\STR_Receptor_Pacotes\\STR_Receptor_Pacotes.csproj",
       "projectName": "STR_Receptor_Pacotes",
-      "projectPath": "C:\\Users\\tharb\\Desktop\\Módulo Extra - Receptor de Pacotes para Teste\\STR_Receptor_Pacotes\\STR_Receptor_Pacotes.csproj",
+      "projectPath": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\Módulo Extra - Receptor de Pacotes para Teste\\STR_Receptor_Pacotes\\STR_Receptor_Pacotes.csproj",
       "packagesPath": "C:\\Users\\tharb\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tharb\\Desktop\\Módulo Extra - Receptor de Pacotes para Teste\\STR_Receptor_Pacotes\\obj\\",
+      "outputPath": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\Módulo Extra - Receptor de Pacotes para Teste\\STR_Receptor_Pacotes\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\tharb\\AppData\\Roaming\\NuGet\\NuGet.Config",

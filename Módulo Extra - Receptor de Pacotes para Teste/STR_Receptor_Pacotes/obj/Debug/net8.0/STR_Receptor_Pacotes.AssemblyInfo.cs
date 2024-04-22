@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("STR_Receptor_Pacotes")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+96185d11c472c4da0b1410aa919ed0b38b0abbeb")]
 [assembly: System.Reflection.AssemblyProductAttribute("STR_Receptor_Pacotes")]
 [assembly: System.Reflection.AssemblyTitleAttribute("STR_Receptor_Pacotes")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
