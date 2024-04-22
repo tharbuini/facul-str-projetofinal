@@ -1,0 +1,28 @@
+C:\Users\tharb\source\repos\STR_Receptor_Pacotes\STR_Receptor_Pacotes\bin\Debug\net8.0\STR_Receptor_Pacotes.exe
+C:\Users\tharb\source\repos\STR_Receptor_Pacotes\STR_Receptor_Pacotes\bin\Debug\net8.0\STR_Receptor_Pacotes.deps.json
+C:\Users\tharb\source\repos\STR_Receptor_Pacotes\STR_Receptor_Pacotes\bin\Debug\net8.0\STR_Receptor_Pacotes.runtimeconfig.json
+C:\Users\tharb\source\repos\STR_Receptor_Pacotes\STR_Receptor_Pacotes\bin\Debug\net8.0\STR_Receptor_Pacotes.dll
+C:\Users\tharb\source\repos\STR_Receptor_Pacotes\STR_Receptor_Pacotes\bin\Debug\net8.0\STR_Receptor_Pacotes.pdb
+C:\Users\tharb\source\repos\STR_Receptor_Pacotes\STR_Receptor_Pacotes\obj\Debug\net8.0\STR_Receptor_Pacotes.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tharb\source\repos\STR_Receptor_Pacotes\STR_Receptor_Pacotes\obj\Debug\net8.0\STR_Receptor_Pacotes.AssemblyInfoInputs.cache
+C:\Users\tharb\source\repos\STR_Receptor_Pacotes\STR_Receptor_Pacotes\obj\Debug\net8.0\STR_Receptor_Pacotes.AssemblyInfo.cs
+C:\Users\tharb\source\repos\STR_Receptor_Pacotes\STR_Receptor_Pacotes\obj\Debug\net8.0\STR_Receptor_Pacotes.csproj.CoreCompileInputs.cache
+C:\Users\tharb\source\repos\STR_Receptor_Pacotes\STR_Receptor_Pacotes\obj\Debug\net8.0\STR_Receptor_Pacotes.dll
+C:\Users\tharb\source\repos\STR_Receptor_Pacotes\STR_Receptor_Pacotes\obj\Debug\net8.0\refint\STR_Receptor_Pacotes.dll
+C:\Users\tharb\source\repos\STR_Receptor_Pacotes\STR_Receptor_Pacotes\obj\Debug\net8.0\STR_Receptor_Pacotes.pdb
+C:\Users\tharb\source\repos\STR_Receptor_Pacotes\STR_Receptor_Pacotes\obj\Debug\net8.0\STR_Receptor_Pacotes.genruntimeconfig.cache
+C:\Users\tharb\source\repos\STR_Receptor_Pacotes\STR_Receptor_Pacotes\obj\Debug\net8.0\ref\STR_Receptor_Pacotes.dll
+C:\Users\tharb\Desktop\Módulo Extra - Receptor de Pacotes para Teste\STR_Receptor_Pacotes\bin\Debug\net8.0\STR_Receptor_Pacotes.exe
+C:\Users\tharb\Desktop\Módulo Extra - Receptor de Pacotes para Teste\STR_Receptor_Pacotes\bin\Debug\net8.0\STR_Receptor_Pacotes.deps.json
+C:\Users\tharb\Desktop\Módulo Extra - Receptor de Pacotes para Teste\STR_Receptor_Pacotes\bin\Debug\net8.0\STR_Receptor_Pacotes.runtimeconfig.json
+C:\Users\tharb\Desktop\Módulo Extra - Receptor de Pacotes para Teste\STR_Receptor_Pacotes\bin\Debug\net8.0\STR_Receptor_Pacotes.dll
+C:\Users\tharb\Desktop\Módulo Extra - Receptor de Pacotes para Teste\STR_Receptor_Pacotes\bin\Debug\net8.0\STR_Receptor_Pacotes.pdb
+C:\Users\tharb\Desktop\Módulo Extra - Receptor de Pacotes para Teste\STR_Receptor_Pacotes\obj\Debug\net8.0\STR_Receptor_Pacotes.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tharb\Desktop\Módulo Extra - Receptor de Pacotes para Teste\STR_Receptor_Pacotes\obj\Debug\net8.0\STR_Receptor_Pacotes.AssemblyInfoInputs.cache
+C:\Users\tharb\Desktop\Módulo Extra - Receptor de Pacotes para Teste\STR_Receptor_Pacotes\obj\Debug\net8.0\STR_Receptor_Pacotes.AssemblyInfo.cs
+C:\Users\tharb\Desktop\Módulo Extra - Receptor de Pacotes para Teste\STR_Receptor_Pacotes\obj\Debug\net8.0\STR_Receptor_Pacotes.csproj.CoreCompileInputs.cache
+C:\Users\tharb\Desktop\Módulo Extra - Receptor de Pacotes para Teste\STR_Receptor_Pacotes\obj\Debug\net8.0\STR_Receptor_Pacotes.dll
+C:\Users\tharb\Desktop\Módulo Extra - Receptor de Pacotes para Teste\STR_Receptor_Pacotes\obj\Debug\net8.0\refint\STR_Receptor_Pacotes.dll
+C:\Users\tharb\Desktop\Módulo Extra - Receptor de Pacotes para Teste\STR_Receptor_Pacotes\obj\Debug\net8.0\STR_Receptor_Pacotes.pdb
+C:\Users\tharb\Desktop\Módulo Extra - Receptor de Pacotes para Teste\STR_Receptor_Pacotes\obj\Debug\net8.0\STR_Receptor_Pacotes.genruntimeconfig.cache
+C:\Users\tharb\Desktop\Módulo Extra - Receptor de Pacotes para Teste\STR_Receptor_Pacotes\obj\Debug\net8.0\ref\STR_Receptor_Pacotes.dll
