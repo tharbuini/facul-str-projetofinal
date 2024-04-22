@@ -190,9 +190,9 @@ namespace STR_Identificador_Curto
     public class UnidadeMonitoramentoDados
     {
         private int idDispositivo;
-        private double correnteNominal = 600;
         private double dial = 0.25;
-        private double correnteCCMax = 10000;
+        private double correntePartida51 = 600; // A corrente nominal para esse caso seria 502A. A aproximação feita foi I51 = In x 1,2.
+        private double correnteCCMax = 7320;    // A corrente calculada no vídeo-base https://www.youtube.com/watch?v=rGn6zAh6ce4
         private double tempoAtuacao;
         private double correnteMedia;
         private System.Threading.Timer timer;
@@ -221,7 +221,7 @@ namespace STR_Identificador_Curto
         {
             while (true)
             {
-                if (correnteMedia < correnteNominal)
+                if (correnteMedia < correntePartida51)
                 {
                     emCurto = false;
                     tempoRestanteEmSegundos = 0;
@@ -235,13 +235,14 @@ namespace STR_Identificador_Curto
                 }
                 else 
                 {
-                    // Seguindo a curva muito-inversa e os valores adotados no vídeo de exemplo
-                    tempoAtuacao = dial * (13.5 / ((correnteMedia / correnteNominal) - 1));
+                    //// Seguindo a curva muito-inversa e os valores adotados no vídeo de exemplo
+                    //tempoAtuacao = dial * (13.5 / ((correnteMedia / correntePartida51) - 1));
+                    
                     emCurto = true;
 
                     if (!timerComecou)
                     {
-                        // Mostra o tempo de atuação em um messagebox (para informação)
+                        //// Mostra o tempo de atuação em um messagebox (para informação)
                         //threadTempoAtuacao = new Thread(new ThreadStart(MostraTempoAtuacao));
                         //threadTempoAtuacao.Start();
 
@@ -276,7 +277,7 @@ namespace STR_Identificador_Curto
         {
             // Atualiza o tempo restante
             tempoRestanteEmSegundos += 0.01;
-            tempoAtuacao = dial * (13.5 / ((correnteMedia / correnteNominal) - 1));
+            tempoAtuacao = dial * (13.5 / ((correnteMedia / correntePartida51) - 1));
 
             if (tempoRestanteEmSegundos >= tempoAtuacao)
             {
