@@ -201,6 +201,7 @@ namespace STR_Identificador_Curto
         private UdpClient udpClient;
         Thread threadAlarme = null;
         Thread threadTempoAtuacao = null;
+        DateTime horaCurto;
         double correnteSendoAnalisada = 0;
         bool timerComecou = false;
         bool emCurto = false;
@@ -245,6 +246,8 @@ namespace STR_Identificador_Curto
                         //// Mostra o tempo de atuação em um messagebox (para informação)
                         //threadTempoAtuacao = new Thread(new ThreadStart(MostraTempoAtuacao));
                         //threadTempoAtuacao.Start();
+
+                        horaCurto = DateTime.Now;
 
                         tempoRestanteEmSegundos = 0;
                         timer = new System.Threading.Timer(TimerCallback, null, 0, 10);
@@ -302,7 +305,7 @@ namespace STR_Identificador_Curto
                 if (contadorPacotes > 1000)
                     Thread.Sleep(1000);
 
-                EnviaPacote(idDispositivo, emCurto, correnteSendoAnalisada, DateTime.Now.ToString("h:mm:ss.fff tt"));
+                EnviaPacote(idDispositivo, emCurto, correnteSendoAnalisada, horaCurto.ToString("h:mm:ss.fff tt"));
                 contadorPacotes++;
 
                 // Verifica a urgência de enviar pacotes
@@ -326,13 +329,13 @@ namespace STR_Identificador_Curto
             contadorPacotes = 0;
         }
         
-        private void EnviaPacote(int idDispositivo, bool emCurto, double corrente, string momento)
+        private void EnviaPacote(int idDispositivo, bool emCurto, double corrente, string horaCurto)
         {
             // Pacote a ser enviado para o módulo atuador
             string formatoPacote = "{'ID': " + idDispositivo +
                                    ", 'Curto': " + emCurto +
                                    ", 'Corrente': " + corrente +
-                                   ", 'Momento': " + momento + "}";
+                                   ", 'HoraCurto': " + horaCurto + "}";
 
             byte[] bytes = Encoding.ASCII.GetBytes(formatoPacote);
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, 11001);

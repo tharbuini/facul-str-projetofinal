@@ -90,54 +90,58 @@ namespace STR_Identificador_Curto
                 if (pararRecebimentoDados)
                     return;
 
-                bytesRecebidos = udpServer.Receive(ref remoteEP);
-                mensagemRecebida = Encoding.ASCII.GetString(bytesRecebidos);
-                dadosRecebidosJSON = JsonConvert.DeserializeObject<JSON_Dados_Corrente>(mensagemRecebida);
-
-                int id = dadosRecebidosJSON.idDispositivo;
-                correnteMedia = (dadosRecebidosJSON.Ia + dadosRecebidosJSON.Ib + dadosRecebidosJSON.Ic) / 3;
-
-                // Verifica se não é o pacote de encerramento de envios
-                if (id != -1)
+                if (udpServer != null)
                 {
-                    if (listaDispositivos.Count <= id || listaDispositivos[id] == null)
-                    {
-                        // Cria uma nova instância de UnidadeMonitoramentoDados se ainda não existir
-                        UnidadeMonitoramentoDados dispositivo = new UnidadeMonitoramentoDados(id, correnteMedia, mutex);
-                        listaDispositivos[id] = dispositivo;
-                        Thread threadDispositivo = new Thread(() => dispositivo.AnalisaDados());
-                        threadDispositivo.Start();
-                    }
-                    else
-                    {
-                        // Atualiza os dados da instância existente de UnidadeMonitoramentoDados
-                        listaDispositivos[id].AtualizaCorrenteMedia(correnteMedia);
-                    }
+                    bytesRecebidos = udpServer.Receive(ref remoteEP);
 
-                    if (listaIDDispositivos.Contains(id))
+                    mensagemRecebida = Encoding.ASCII.GetString(bytesRecebidos);
+                    dadosRecebidosJSON = JsonConvert.DeserializeObject<JSON_Dados_Corrente>(mensagemRecebida);
+
+                    int id = dadosRecebidosJSON.idDispositivo;
+                    correnteMedia = (dadosRecebidosJSON.Ia + dadosRecebidosJSON.Ib + dadosRecebidosJSON.Ic) / 3;
+
+                    // Verifica se não é o pacote de encerramento de envios
+                    if (id != -1)
                     {
-                        // Atualiza listview com novos valores de corrente
-                        foreach (ListViewItem item in listViewDispositivos.Items)
+                        if (listaDispositivos.Count <= id || listaDispositivos[id] == null)
                         {
-                            if (item.SubItems[0].Text == id.ToString()) // Procura pelo ID
+                            // Cria uma nova instância de UnidadeMonitoramentoDados se ainda não existir
+                            UnidadeMonitoramentoDados dispositivo = new UnidadeMonitoramentoDados(id, correnteMedia, mutex);
+                            listaDispositivos[id] = dispositivo;
+                            Thread threadDispositivo = new Thread(() => dispositivo.AnalisaDados());
+                            threadDispositivo.Start();
+                        }
+                        else
+                        {
+                            // Atualiza os dados da instância existente de UnidadeMonitoramentoDados
+                            listaDispositivos[id].AtualizaCorrenteMedia(correnteMedia);
+                        }
+
+                        if (listaIDDispositivos.Contains(id))
+                        {
+                            // Atualiza listview com novos valores de corrente
+                            foreach (ListViewItem item in listViewDispositivos.Items)
                             {
-                                item.SubItems[1].Text = correnteMedia.ToString(); // Atualiza a corrente
+                                if (item.SubItems[0].Text == id.ToString()) // Procura pelo ID
+                                {
+                                    item.SubItems[1].Text = correnteMedia.ToString(); // Atualiza a corrente
+                                }
                             }
+                        }
+                        else
+                        {
+                            listViewDispositivos.Items.Add(new ListViewItem(new String[] { id.ToString(), correnteMedia.ToString(), "-" }));
+                            listaIDDispositivos.Add(id);
                         }
                     }
                     else
                     {
-                        listViewDispositivos.Items.Add(new ListViewItem(new String[] { id.ToString(), correnteMedia.ToString(), "-" }));
-                        listaIDDispositivos.Add(id);
-                    }
-                }
-                else
-                {
-                    // Atualiza todas as correntes para 0
-                    for (int i = 1; i < listaDispositivos.Count; i++)
-                    {
-                        if (listaDispositivos[i] != null)  
-                            listaDispositivos[i].AtualizaCorrenteMedia(0);
+                        // Atualiza todas as correntes para 0
+                        for (int i = 1; i < listaDispositivos.Count; i++)
+                        {
+                            if (listaDispositivos[i] != null)
+                                listaDispositivos[i].AtualizaCorrenteMedia(0);
+                        }
                     }
                 }
             }
@@ -168,6 +172,7 @@ namespace STR_Identificador_Curto
         private UdpClient udpClient;
         Thread threadAlarme = null;
         Thread threadTempoAtuacao = null;
+        DateTime horaCurto;
         double correnteSendoAnalisada = 0;
         bool timerComecou = false;
         bool emCurto = false;
@@ -206,6 +211,7 @@ namespace STR_Identificador_Curto
 
                     if (!timerComecou)
                     {
+                        horaCurto = DateTime.Now;
                         tempoRestanteEmSegundos = 0;
                         timer = new System.Threading.Timer(TimerCallback, null, 0, 10);
 
@@ -262,7 +268,7 @@ namespace STR_Identificador_Curto
                 if (contadorPacotes > 1000)
                     Thread.Sleep(1000);
 
-                EnviaPacote(idDispositivo, emCurto, correnteSendoAnalisada, DateTime.Now.ToString("h:mm:ss.fff tt"));
+                EnviaPacote(idDispositivo, emCurto, correnteSendoAnalisada, horaCurto.ToString("h:mm:ss.fff tt"));
                 contadorPacotes++;
 
                 // Verifica a urgência de enviar pacotes
@@ -286,13 +292,13 @@ namespace STR_Identificador_Curto
             contadorPacotes = 0;
         }
         
-        private void EnviaPacote(int idDispositivo, bool emCurto, double corrente, string momento)
+        private void EnviaPacote(int idDispositivo, bool emCurto, double corrente, string horaCurto)
         {
             // Pacote a ser enviado para o módulo atuador
             string formatoPacote = "{'ID': " + idDispositivo +
                                    ", 'Curto': " + emCurto +
                                    ", 'Corrente': " + corrente +
-                                   ", 'Momento': " + momento + "}";
+                                   ", 'HoraCurto': " + horaCurto + "}";
 
             byte[] bytes = Encoding.ASCII.GetBytes(formatoPacote);
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, 11001);
