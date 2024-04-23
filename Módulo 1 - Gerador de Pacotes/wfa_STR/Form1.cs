@@ -22,10 +22,9 @@ namespace STR_Gerador
         Thread[] listaThreadsUnidadesGeradoras;
         UnidadeGeradoraDadosMedicao[] listaUnidadesGeradorasDadosMedicao;
         UdpClient udpClient = null;
-        IPEndPoint ipConexaoRecebimentoUDP = null;
-        IPEndPoint ipConexaoEnvioUDP = null;
         private List<int> dadosPlotarGrafico = new List<int>();
         public Mutex mutex = new Mutex();
+        int quantidadeUnidGeradoras = 0;
 
         public Form1()
         {
@@ -69,20 +68,16 @@ namespace STR_Gerador
             udpClient = new UdpClient();
             udpClient.Connect("127.0.0.1", 11000);
 
-
             // parte 2: gera objetos equivalentes a unidades geradoras
-            int quantidadeUnidGeradoras = listViewUnidGeradora.Items.Count;
-            listaUnidadesGeradorasDadosMedicao = new UnidadeGeradoraDadosMedicao[quantidadeUnidGeradoras];
-            listaThreadsUnidadesGeradoras = new Thread[quantidadeUnidGeradoras];
+            quantidadeUnidGeradoras = listViewUnidGeradora.Items.Count;
+            listaUnidadesGeradorasDadosMedicao = new UnidadeGeradoraDadosMedicao[5];
+            listaThreadsUnidadesGeradoras = new Thread[5];
 
-            int codigo = 0;
-            int freqEnvio = 0;
-            int correnteOriginal = 0;
             for (int i = 0; i < quantidadeUnidGeradoras; i++)
             {
-                codigo = Convert.ToInt16(listViewUnidGeradora.Items[i].SubItems[0].Text);
-                freqEnvio = Convert.ToInt16(listViewUnidGeradora.Items[i].SubItems[1].Text);
-                correnteOriginal = Convert.ToInt16(listViewUnidGeradora.Items[i].SubItems[2].Text);
+                int codigo = Convert.ToInt16(listViewUnidGeradora.Items[i].SubItems[0].Text);
+                int freqEnvio = Convert.ToInt16(listViewUnidGeradora.Items[i].SubItems[1].Text);
+                int correnteOriginal = Convert.ToInt16(listViewUnidGeradora.Items[i].SubItems[2].Text);
                 listaUnidadesGeradorasDadosMedicao[i] = new UnidadeGeradoraDadosMedicao(udpClient, mutex, correnteOriginal, codigo, freqEnvio);
             }
 
@@ -110,7 +105,6 @@ namespace STR_Gerador
             {
                 listaUnidadesGeradorasDadosMedicao[i].pararEnvio = true; // vai forçar as threads pararem
             }
-            //Thread.Sleep(500);
             listaUnidadesGeradorasDadosMedicao = null;
 
             // enviar último pacote zerado
@@ -150,6 +144,22 @@ namespace STR_Gerador
             { 
                 listViewUnidGeradora.Items.Add(new ListViewItem(new String[] { numericUpDownCodUnidGen.Value.ToString(), numericUpDownFreqEnvio.Value.ToString(), numericUpDownValorCorrente.Value.ToString() }));
                 numericUpDownCodUnidGen.Value = numericUpDownCodUnidGen.Value + 1;
+
+                // Adicionando unidade geradora
+                if (buttonIniciarEnvio.Enabled == false)
+                {
+                    int codigo = Convert.ToInt16(listViewUnidGeradora.Items[quantidadeUnidGeradoras].SubItems[0].Text);
+                    int freqEnvio = Convert.ToInt16(listViewUnidGeradora.Items[quantidadeUnidGeradoras].SubItems[1].Text);
+                    int correnteOriginal = Convert.ToInt16(listViewUnidGeradora.Items[quantidadeUnidGeradoras].SubItems[2].Text);
+
+                    listaUnidadesGeradorasDadosMedicao[quantidadeUnidGeradoras] = new UnidadeGeradoraDadosMedicao(udpClient, mutex, correnteOriginal, codigo, freqEnvio);
+
+                    listaThreadsUnidadesGeradoras[quantidadeUnidGeradoras] = new Thread(new ThreadStart(listaUnidadesGeradorasDadosMedicao[quantidadeUnidGeradoras].EnviaPacotesUDPFrequentemente));
+                    listaThreadsUnidadesGeradoras[quantidadeUnidGeradoras].Name = "UnidGeradora" + quantidadeUnidGeradoras.ToString();
+                    listaThreadsUnidadesGeradoras[quantidadeUnidGeradoras].Start();
+
+                    quantidadeUnidGeradoras++;
+                }
             }
         }
 
