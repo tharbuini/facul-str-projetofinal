@@ -61,6 +61,7 @@
             // 
             // buttonPararEnvio
             // 
+            this.buttonPararEnvio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonPararEnvio.Enabled = false;
             this.buttonPararEnvio.Location = new System.Drawing.Point(392, 574);
             this.buttonPararEnvio.Margin = new System.Windows.Forms.Padding(2);
@@ -134,6 +135,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.formsPlotPacotesEnviados);
             this.groupBox3.Location = new System.Drawing.Point(270, 30);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
@@ -146,6 +149,8 @@
             // 
             // formsPlotPacotesEnviados
             // 
+            this.formsPlotPacotesEnviados.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.formsPlotPacotesEnviados.Location = new System.Drawing.Point(2, 15);
             this.formsPlotPacotesEnviados.Name = "formsPlotPacotesEnviados";
             this.formsPlotPacotesEnviados.Size = new System.Drawing.Size(346, 505);
@@ -280,6 +285,9 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.groupBox3);
             this.groupBox4.Controls.Add(this.groupBox2);
             this.groupBox4.Controls.Add(this.buttonIniciarEnvio);
@@ -289,7 +297,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(648, 628);
+            this.groupBox4.Size = new System.Drawing.Size(621, 628);
             this.groupBox4.TabIndex = 48;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Módulo 1: Gera dados para subestação";

@@ -29,8 +29,9 @@ namespace STR_Gerador
         public Form1()
         {
             InitializeComponent();
-            Control.CheckForIllegalCrossThreadCalls = false; // possibilita que componentes sejam chamados por threads diferentes                                    
-
+            // Possibilitando que componentes sejam chamados por threads diferentes  
+            Control.CheckForIllegalCrossThreadCalls = false;                                  
+            
             formsPlotPacotesEnviados.Plot.Title("Dados de corrente referente à unidade geradora 1", true, Color.Black, 12.0f);
         }
 
@@ -57,18 +58,17 @@ namespace STR_Gerador
 
         private void buttonIniciarEnvio_Click(object sender, EventArgs e)
         {
-            // parte 0: inicializações de interface
             buttonIniciarEnvio.Enabled = false;
             propertyGridUnidGeradoras.Enabled = true;
             buttonPararEnvio.Enabled = true;
-            timerPlotSinaisEnviados.Start(); // para plotar sinais
+            timerPlotSinaisEnviados.Start();
             dadosPlotarGrafico.Clear();
 
-            // parte 1: inicia a conexão UDP
+            // Iniciando conexão UDP no localhost
             udpClient = new UdpClient();
             udpClient.Connect("127.0.0.1", 11000);
 
-            // parte 2: gera objetos equivalentes a unidades geradoras
+            // Gerando unidades geradoras com limite de 5
             quantidadeUnidGeradoras = listViewUnidGeradora.Items.Count;
             listaUnidadesGeradorasDadosMedicao = new UnidadeGeradoraDadosMedicao[5];
             listaThreadsUnidadesGeradoras = new Thread[5];
@@ -81,7 +81,7 @@ namespace STR_Gerador
                 listaUnidadesGeradorasDadosMedicao[i] = new UnidadeGeradoraDadosMedicao(udpClient, mutex, correnteOriginal, codigo, freqEnvio);
             }
 
-            // parte 3: gera threads
+            // Gerando threads para as unidades
             for (int i = 0; i < quantidadeUnidGeradoras; i++)
             {
                 listaThreadsUnidadesGeradoras[i] = new Thread(new ThreadStart(listaUnidadesGeradorasDadosMedicao[i].EnviaPacotesUDPFrequentemente));
@@ -92,30 +92,29 @@ namespace STR_Gerador
 
         private void buttonPararEnvio_Click(object sender, EventArgs e)
         {
-            // parte 0: inicializações de interface
             propertyGridUnidGeradoras.Enabled = false;
             buttonPararEnvio.Enabled = false;
-            timerPlotSinaisEnviados.Stop(); //para plotar sinais
+            timerPlotSinaisEnviados.Stop();
             dadosPlotarGrafico.Clear();
             formsPlotPacotesEnviados.Plot.Clear();
             buttonIniciarEnvio.Enabled = true;
 
-            // parte 1: para os objetos equivalentes a unidades geradoras            
+            // Encerrando os objetos equivalentes a unidades geradoras            
             for (int i = 0; i < listaUnidadesGeradorasDadosMedicao.Length; i++)
             {
-                listaUnidadesGeradorasDadosMedicao[i].pararEnvio = true; // vai forçar as threads pararem
+                listaUnidadesGeradorasDadosMedicao[i].pararEnvio = true;
             }
             listaUnidadesGeradorasDadosMedicao = null;
 
-            // enviar último pacote zerado
+            // Enviando último pacote com corrente zerada após a finalização
             string formatoPacote = "{'Ia': " + '0' + " ,'Ib': " + '0' + " ,'Ic': " + '0' + " ,'idDispositivo': " + "-1" + "}";
             byte[] bytes = Encoding.ASCII.GetBytes(formatoPacote);
-            mutex.WaitOne(); // bloqueia esta região para uma simples thread acessar
+            mutex.WaitOne(); 
             if (udpClient != null)
                 udpClient.Send(bytes, bytes.Length);
             mutex.ReleaseMutex();
 
-            // parte 2: fecha a conexão UDP
+            // Fechando a conexão UDP
             if (udpClient != null) 
             { 
                 udpClient.Close();
@@ -167,7 +166,7 @@ namespace STR_Gerador
         {
             if (listaUnidadesGeradorasDadosMedicao.Length > 0)
             {
-                if (dadosPlotarGrafico.Count > 300) // se tiver muitas amostras, zera
+                if (dadosPlotarGrafico.Count > 300)
                 {
                     dadosPlotarGrafico.Clear();
                 }
@@ -176,7 +175,7 @@ namespace STR_Gerador
                     dadosPlotarGrafico.Add(Convert.ToInt32(listaUnidadesGeradorasDadosMedicao[0].valorCorrente));
                 }
 
-                // atualiza visualização do gráfico
+                // Atualizando visualização do gráfico
                 double[] ys = new double[dadosPlotarGrafico.Count];
                 double[] xs = DataGen.Consecutive(dadosPlotarGrafico.Count);
                 for (int i = 0; i < dadosPlotarGrafico.Count; i++)
@@ -245,8 +244,7 @@ namespace STR_Gerador
             contadorPacotesEnviados = 0;
             pararEnvio = false;
         }
-
-        // Usado como thread
+        
         public void EnviaPacotesUDPFrequentemente() 
         {
             string formatoPacote;
