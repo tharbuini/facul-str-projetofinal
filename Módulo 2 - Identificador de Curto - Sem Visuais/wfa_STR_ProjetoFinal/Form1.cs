@@ -225,12 +225,6 @@ namespace STR_Identificador_Curto
                 }
             }
         }
-
-        private void MostraTempoAtuacao()
-        {
-            MessageBox.Show("Corrente: " + this.correnteMedia + " A / Tempo de Atuação: " + this.tempoAtuacao);
-            threadTempoAtuacao.Abort();
-        }
         
         private void TimerCallback(object state)
         {
@@ -272,7 +266,7 @@ namespace STR_Identificador_Curto
                 else
                 {
                     // Caso a corrente seja maior que o limite superior, envia com mais rapidez
-                    Thread.Sleep(100);
+                    Thread.Sleep(10);
                 }
             }
 

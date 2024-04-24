@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\M\u00F3dulo 2 - Identificador de Curto - Com Visuais\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E84C1FBC-6A66-408F-B7F8-0ECC6727CD58}|wfa_STR_ProjetoFinal\\STR_Identificador_Curto.csproj|c:\\users\\tharb\\documents\\github\\facul-str-projetofinal\\m\u00F3dulo 2 - identificador de curto - com visuais\\wfa_str_projetofinal\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E84C1FBC-6A66-408F-B7F8-0ECC6727CD58}|wfa_STR_ProjetoFinal\\STR_Identificador_Curto.csproj|solutionrelative:wfa_str_projetofinal\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E84C1FBC-6A66-408F-B7F8-0ECC6727CD58}|wfa_STR_ProjetoFinal\\STR_Identificador_Curto.csproj|c:\\users\\tharb\\documents\\github\\facul-str-projetofinal\\m\u00F3dulo 2 - identificador de curto - com visuais\\wfa_str_projetofinal\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E84C1FBC-6A66-408F-B7F8-0ECC6727CD58}|wfa_STR_ProjetoFinal\\STR_Identificador_Curto.csproj|solutionrelative:wfa_str_projetofinal\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E84C1FBC-6A66-408F-B7F8-0ECC6727CD58}|wfa_STR_ProjetoFinal\\STR_Identificador_Curto.csproj|C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\M\u00F3dulo 2 - Identificador de Curto - Com Visuais\\wfa_str_projetofinal\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E84C1FBC-6A66-408F-B7F8-0ECC6727CD58}|wfa_STR_ProjetoFinal\\STR_Identificador_Curto.csproj|solutionrelative:wfa_str_projetofinal\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{E84C1FBC-6A66-408F-B7F8-0ECC6727CD58}|wfa_STR_ProjetoFinal\\STR_Identificador_Curto.csproj|C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\M\u00F3dulo 2 - Identificador de Curto - Com Visuais\\wfa_str_projetofinal\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E84C1FBC-6A66-408F-B7F8-0ECC6727CD58}|wfa_STR_ProjetoFinal\\STR_Identificador_Curto.csproj|solutionrelative:wfa_str_projetofinal\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,31 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\M\u00F3dulo 2 - Identificador de Curto - Com Visuais\\wfa_STR_ProjetoFinal\\Form1.cs",
               "RelativeDocumentMoniker": "wfa_STR_ProjetoFinal\\Form1.cs",
               "ToolTip": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\M\u00F3dulo 2 - Identificador de Curto - Com Visuais\\wfa_STR_ProjetoFinal\\Form1.cs",
               "RelativeToolTip": "wfa_STR_ProjetoFinal\\Form1.cs",
-              "ViewState": "AQIAACwBAAAAAAAAAAAQwEIBAAAmAAAA",
+              "ViewState": "AQIAACwBAAAAAAAAAAAzwEIBAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-23T17:27:50.355Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\M\u00F3dulo 2 - Identificador de Curto - Com Visuais\\wfa_STR_ProjetoFinal\\Form1.cs",
               "RelativeDocumentMoniker": "wfa_STR_ProjetoFinal\\Form1.cs",
               "ToolTip": "C:\\Users\\tharb\\Documents\\GitHub\\facul-str-projetofinal\\M\u00F3dulo 2 - Identificador de Curto - Com Visuais\\wfa_STR_ProjetoFinal\\Form1.cs [Design]",
               "RelativeToolTip": "wfa_STR_ProjetoFinal\\Form1.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-23T17:27:49.331Z"
+              "WhenOpened": "2024-04-23T17:27:49.331Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }

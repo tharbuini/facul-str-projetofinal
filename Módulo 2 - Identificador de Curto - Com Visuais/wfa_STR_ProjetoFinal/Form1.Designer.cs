@@ -54,10 +54,10 @@
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(758, 415);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(1011, 511);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Módulo 2: Identificador de Curto-Circuito IEC";
@@ -65,11 +65,11 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.formsPlotPacotesRecebidos);
-            this.groupBox3.Location = new System.Drawing.Point(267, 17);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox3.Location = new System.Drawing.Point(356, 21);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Size = new System.Drawing.Size(480, 388);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox3.Size = new System.Drawing.Size(640, 478);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Visualização";
@@ -77,10 +77,10 @@
             // formsPlotPacotesRecebidos
             // 
             this.formsPlotPacotesRecebidos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.formsPlotPacotesRecebidos.Location = new System.Drawing.Point(2, 15);
-            this.formsPlotPacotesRecebidos.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.formsPlotPacotesRecebidos.Location = new System.Drawing.Point(3, 17);
+            this.formsPlotPacotesRecebidos.Margin = new System.Windows.Forms.Padding(5, 2, 5, 2);
             this.formsPlotPacotesRecebidos.Name = "formsPlotPacotesRecebidos";
-            this.formsPlotPacotesRecebidos.Size = new System.Drawing.Size(476, 371);
+            this.formsPlotPacotesRecebidos.Size = new System.Drawing.Size(634, 459);
             this.formsPlotPacotesRecebidos.TabIndex = 0;
             // 
             // groupBox2
@@ -89,11 +89,11 @@
             this.groupBox2.Controls.Add(this.buttonParar);
             this.groupBox2.Controls.Add(this.buttonIniciar);
             this.groupBox2.Controls.Add(this.toolStrip1);
-            this.groupBox2.Location = new System.Drawing.Point(9, 17);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Location = new System.Drawing.Point(12, 21);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(254, 388);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Size = new System.Drawing.Size(339, 478);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Controle";
@@ -104,9 +104,10 @@
             this.columnHeader1,
             this.columnHeader2});
             this.listViewDispositivos.HideSelection = false;
-            this.listViewDispositivos.Location = new System.Drawing.Point(5, 18);
+            this.listViewDispositivos.Location = new System.Drawing.Point(7, 22);
+            this.listViewDispositivos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listViewDispositivos.Name = "listViewDispositivos";
-            this.listViewDispositivos.Size = new System.Drawing.Size(244, 284);
+            this.listViewDispositivos.Size = new System.Drawing.Size(324, 349);
             this.listViewDispositivos.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listViewDispositivos.TabIndex = 5;
             this.listViewDispositivos.UseCompatibleStateImageBehavior = false;
@@ -125,10 +126,10 @@
             // 
             // buttonParar
             // 
-            this.buttonParar.Location = new System.Drawing.Point(165, 307);
-            this.buttonParar.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonParar.Location = new System.Drawing.Point(220, 378);
+            this.buttonParar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonParar.Name = "buttonParar";
-            this.buttonParar.Size = new System.Drawing.Size(70, 22);
+            this.buttonParar.Size = new System.Drawing.Size(93, 27);
             this.buttonParar.TabIndex = 4;
             this.buttonParar.Text = "Parar";
             this.buttonParar.UseVisualStyleBackColor = true;
@@ -136,10 +137,10 @@
             // 
             // buttonIniciar
             // 
-            this.buttonIniciar.Location = new System.Drawing.Point(16, 307);
-            this.buttonIniciar.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonIniciar.Location = new System.Drawing.Point(21, 378);
+            this.buttonIniciar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonIniciar.Name = "buttonIniciar";
-            this.buttonIniciar.Size = new System.Drawing.Size(70, 22);
+            this.buttonIniciar.Size = new System.Drawing.Size(93, 27);
             this.buttonIniciar.TabIndex = 3;
             this.buttonIniciar.Text = "Iniciar";
             this.buttonIniciar.UseVisualStyleBackColor = true;
@@ -152,19 +153,19 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
             this.toolStripTextBoxConexao});
-            this.toolStrip1.Location = new System.Drawing.Point(2, 359);
-            this.toolStrip1.Margin = new System.Windows.Forms.Padding(4);
+            this.toolStrip1.Location = new System.Drawing.Point(3, 445);
+            this.toolStrip1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Padding = new System.Windows.Forms.Padding(2);
+            this.toolStrip1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(250, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(333, 31);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(60, 20);
+            this.toolStripLabel1.Size = new System.Drawing.Size(74, 24);
             this.toolStripLabel1.Text = "Conexão: ";
             // 
             // toolStripTextBoxConexao
@@ -172,7 +173,7 @@
             this.toolStripTextBoxConexao.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBoxConexao.Name = "toolStripTextBoxConexao";
             this.toolStripTextBoxConexao.ReadOnly = true;
-            this.toolStripTextBoxConexao.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBoxConexao.Size = new System.Drawing.Size(132, 27);
             // 
             // timerPlotPacotesRecebidos
             // 
@@ -181,11 +182,12 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(758, 415);
+            this.ClientSize = new System.Drawing.Size(1011, 511);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Identificador de Curto";
             this.groupBox1.ResumeLayout(false);

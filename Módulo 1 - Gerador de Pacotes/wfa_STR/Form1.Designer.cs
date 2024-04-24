@@ -63,10 +63,10 @@
             // 
             this.buttonPararEnvio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonPararEnvio.Enabled = false;
-            this.buttonPararEnvio.Location = new System.Drawing.Point(392, 574);
-            this.buttonPararEnvio.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonPararEnvio.Location = new System.Drawing.Point(523, 706);
+            this.buttonPararEnvio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonPararEnvio.Name = "buttonPararEnvio";
-            this.buttonPararEnvio.Size = new System.Drawing.Size(210, 29);
+            this.buttonPararEnvio.Size = new System.Drawing.Size(280, 36);
             this.buttonPararEnvio.TabIndex = 24;
             this.buttonPararEnvio.Text = "Parar";
             this.buttonPararEnvio.UseVisualStyleBackColor = true;
@@ -76,18 +76,18 @@
             // 
             this.propertyGridUnidGeradoras.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.propertyGridUnidGeradoras.Enabled = false;
-            this.propertyGridUnidGeradoras.Location = new System.Drawing.Point(2, 215);
-            this.propertyGridUnidGeradoras.Margin = new System.Windows.Forms.Padding(2);
+            this.propertyGridUnidGeradoras.Location = new System.Drawing.Point(3, 265);
+            this.propertyGridUnidGeradoras.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.propertyGridUnidGeradoras.Name = "propertyGridUnidGeradoras";
-            this.propertyGridUnidGeradoras.Size = new System.Drawing.Size(256, 182);
+            this.propertyGridUnidGeradoras.Size = new System.Drawing.Size(341, 224);
             this.propertyGridUnidGeradoras.TabIndex = 48;
             // 
             // buttonIniciarEnvio
             // 
-            this.buttonIniciarEnvio.Location = new System.Drawing.Point(23, 574);
-            this.buttonIniciarEnvio.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonIniciarEnvio.Location = new System.Drawing.Point(31, 706);
+            this.buttonIniciarEnvio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonIniciarEnvio.Name = "buttonIniciarEnvio";
-            this.buttonIniciarEnvio.Size = new System.Drawing.Size(211, 29);
+            this.buttonIniciarEnvio.Size = new System.Drawing.Size(281, 36);
             this.buttonIniciarEnvio.TabIndex = 23;
             this.buttonIniciarEnvio.Text = "&Iniciar";
             this.buttonIniciarEnvio.UseVisualStyleBackColor = true;
@@ -95,10 +95,10 @@
             // 
             // buttonLimpar
             // 
-            this.buttonLimpar.Location = new System.Drawing.Point(146, 186);
-            this.buttonLimpar.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonLimpar.Location = new System.Drawing.Point(195, 229);
+            this.buttonLimpar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonLimpar.Name = "buttonLimpar";
-            this.buttonLimpar.Size = new System.Drawing.Size(106, 25);
+            this.buttonLimpar.Size = new System.Drawing.Size(141, 31);
             this.buttonLimpar.TabIndex = 58;
             this.buttonLimpar.Text = "Limpar";
             this.buttonLimpar.UseVisualStyleBackColor = true;
@@ -106,10 +106,10 @@
             // 
             // buttonAdicionar
             // 
-            this.buttonAdicionar.Location = new System.Drawing.Point(17, 91);
-            this.buttonAdicionar.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonAdicionar.Location = new System.Drawing.Point(23, 112);
+            this.buttonAdicionar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAdicionar.Name = "buttonAdicionar";
-            this.buttonAdicionar.Size = new System.Drawing.Size(235, 25);
+            this.buttonAdicionar.Size = new System.Drawing.Size(313, 31);
             this.buttonAdicionar.TabIndex = 58;
             this.buttonAdicionar.Text = "Adicionar";
             this.buttonAdicionar.UseVisualStyleBackColor = true;
@@ -117,15 +117,15 @@
             // 
             // numericUpDownValorCorrente
             // 
-            this.numericUpDownValorCorrente.Location = new System.Drawing.Point(116, 67);
-            this.numericUpDownValorCorrente.Margin = new System.Windows.Forms.Padding(2);
+            this.numericUpDownValorCorrente.Location = new System.Drawing.Point(155, 82);
+            this.numericUpDownValorCorrente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownValorCorrente.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
             this.numericUpDownValorCorrente.Name = "numericUpDownValorCorrente";
-            this.numericUpDownValorCorrente.Size = new System.Drawing.Size(136, 20);
+            this.numericUpDownValorCorrente.Size = new System.Drawing.Size(181, 22);
             this.numericUpDownValorCorrente.TabIndex = 47;
             this.numericUpDownValorCorrente.Value = new decimal(new int[] {
             100,
@@ -138,11 +138,11 @@
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.formsPlotPacotesEnviados);
-            this.groupBox3.Location = new System.Drawing.Point(270, 30);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox3.Location = new System.Drawing.Point(360, 37);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Size = new System.Drawing.Size(350, 522);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox3.Size = new System.Drawing.Size(467, 642);
             this.groupBox3.TabIndex = 47;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Visualização";
@@ -151,25 +151,25 @@
             // 
             this.formsPlotPacotesEnviados.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.formsPlotPacotesEnviados.Location = new System.Drawing.Point(2, 15);
+            this.formsPlotPacotesEnviados.Location = new System.Drawing.Point(3, 18);
+            this.formsPlotPacotesEnviados.Margin = new System.Windows.Forms.Padding(7, 4, 7, 4);
             this.formsPlotPacotesEnviados.Name = "formsPlotPacotesEnviados";
-            this.formsPlotPacotesEnviados.Size = new System.Drawing.Size(346, 505);
+            this.formsPlotPacotesEnviados.Size = new System.Drawing.Size(461, 622);
             this.formsPlotPacotesEnviados.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 23);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(20, 28);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(129, 13);
+            this.label2.Size = new System.Drawing.Size(165, 16);
             this.label2.TabIndex = 54;
             this.label2.Text = "Código unidade geradora:";
             // 
             // numericUpDownFreqEnvio
             // 
-            this.numericUpDownFreqEnvio.Location = new System.Drawing.Point(100, 44);
-            this.numericUpDownFreqEnvio.Margin = new System.Windows.Forms.Padding(2);
+            this.numericUpDownFreqEnvio.Location = new System.Drawing.Point(133, 54);
+            this.numericUpDownFreqEnvio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownFreqEnvio.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -181,7 +181,7 @@
             0,
             0});
             this.numericUpDownFreqEnvio.Name = "numericUpDownFreqEnvio";
-            this.numericUpDownFreqEnvio.Size = new System.Drawing.Size(152, 20);
+            this.numericUpDownFreqEnvio.Size = new System.Drawing.Size(203, 22);
             this.numericUpDownFreqEnvio.TabIndex = 21;
             this.numericUpDownFreqEnvio.Value = new decimal(new int[] {
             500,
@@ -192,27 +192,25 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(16, 46);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Location = new System.Drawing.Point(21, 57);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(85, 13);
+            this.label10.Size = new System.Drawing.Size(106, 16);
             this.label10.TabIndex = 20;
             this.label10.Text = "Freq. envio (ms):";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 69);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(21, 85);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 13);
+            this.label3.Size = new System.Drawing.Size(127, 16);
             this.label3.TabIndex = 55;
             this.label3.Text = "Valor corrente RMS:";
             // 
             // numericUpDownCodUnidGen
             // 
-            this.numericUpDownCodUnidGen.Location = new System.Drawing.Point(146, 21);
-            this.numericUpDownCodUnidGen.Margin = new System.Windows.Forms.Padding(2);
+            this.numericUpDownCodUnidGen.Location = new System.Drawing.Point(195, 26);
+            this.numericUpDownCodUnidGen.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDownCodUnidGen.Maximum = new decimal(new int[] {
             20,
             0,
@@ -224,7 +222,7 @@
             0,
             0});
             this.numericUpDownCodUnidGen.Name = "numericUpDownCodUnidGen";
-            this.numericUpDownCodUnidGen.Size = new System.Drawing.Size(106, 20);
+            this.numericUpDownCodUnidGen.Size = new System.Drawing.Size(141, 22);
             this.numericUpDownCodUnidGen.TabIndex = 53;
             this.numericUpDownCodUnidGen.Value = new decimal(new int[] {
             1,
@@ -241,11 +239,11 @@
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.numericUpDownCodUnidGen);
-            this.groupBox2.Location = new System.Drawing.Point(4, 30);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Location = new System.Drawing.Point(5, 37);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(261, 121);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Size = new System.Drawing.Size(348, 149);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Adicionar nova unidade geradora";
@@ -257,10 +255,10 @@
             this.columnHeader2,
             this.columnHeader3});
             this.listViewUnidGeradora.HideSelection = false;
-            this.listViewUnidGeradora.Location = new System.Drawing.Point(4, 17);
-            this.listViewUnidGeradora.Margin = new System.Windows.Forms.Padding(2);
+            this.listViewUnidGeradora.Location = new System.Drawing.Point(5, 21);
+            this.listViewUnidGeradora.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listViewUnidGeradora.Name = "listViewUnidGeradora";
-            this.listViewUnidGeradora.Size = new System.Drawing.Size(248, 165);
+            this.listViewUnidGeradora.Size = new System.Drawing.Size(329, 202);
             this.listViewUnidGeradora.TabIndex = 56;
             this.listViewUnidGeradora.UseCompatibleStateImageBehavior = false;
             this.listViewUnidGeradora.View = System.Windows.Forms.View.Details;
@@ -294,10 +292,10 @@
             this.groupBox4.Controls.Add(this.buttonPararEnvio);
             this.groupBox4.Controls.Add(this.groupBox1);
             this.groupBox4.Location = new System.Drawing.Point(0, 0);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(621, 628);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox4.Size = new System.Drawing.Size(828, 773);
             this.groupBox4.TabIndex = 48;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Módulo 1: Gera dados para subestação";
@@ -307,11 +305,11 @@
             this.groupBox1.Controls.Add(this.buttonLimpar);
             this.groupBox1.Controls.Add(this.propertyGridUnidGeradoras);
             this.groupBox1.Controls.Add(this.listViewUnidGeradora);
-            this.groupBox1.Location = new System.Drawing.Point(4, 155);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Location = new System.Drawing.Point(5, 191);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(260, 399);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(347, 491);
             this.groupBox1.TabIndex = 46;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Gerencia unidades geradoras";
@@ -323,10 +321,12 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 628);
+            this.ClientSize = new System.Drawing.Size(832, 773);
             this.Controls.Add(this.groupBox4);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Gerador Mockup";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownValorCorrente)).EndInit();
